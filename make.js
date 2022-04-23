@@ -3,10 +3,15 @@ class MAKE {
         let article = location.hash.substring(1);
         console.log(article)
         let req = new XMLHttpRequest();
-        req.addEventListener("load", this.reqListener);
-        req.open("GET","./article/"+article+".md",false);
+        req.open("GET","/article/"+article+".md",false);
         req.send();
-        return req.responseText.toString();
+        if (req.status!=200) {
+            let errormsg = req.responseText
+            errormsg = errormsg.match(/<pre>(.+?)<\/pre>/)[1]
+            console.error(errormsg)
+            return '# Article not found\nSorry, "'+article+'" page was not found  \n```\n'+req.status.toString()+" "+errormsg
+        }
+        return req.response;
     }
     makehtml() {
         let data = this.get();

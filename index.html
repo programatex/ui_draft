@@ -9,13 +9,13 @@
         </div>
 
         <div id="panel">
-            <p id="logo">数学が苦手な<br>プログラマのための<br>教科書</p>
+            <a id="logo" href="#home">数学が苦手な<br>プログラマのための<br>教科書</a>
 
             <div>
                 <p class="panelindex">記事</p>
                 <ul class="panellist">
                     <li class="panellist"><a href="#bintodec" class="panellist">2進数から10進数への変換</a></li>
-                    <li class="panellist"><a href="#" class="panellist">2進数と10進数</a></li>
+                    <li class="panellist"><a href="#notfound" class="panellist">Not Found</a></li>
                 </ul>
             </div>
             <div>
@@ -38,14 +38,14 @@
 <script>
 var make
 window.onload = function() {
-    let article = location.hash.substring(1);
-    if (article.length<1) {
-        location.hash = "home"
-    }
     make = new MAKE()
     show();
 }
 function show() {
+    let article = location.hash.substring(1);
+    if (article.length<1) {
+        location.hash = "home"
+    }
     articledata = make.makehtml()
     document.getElementById("page").replaceWith(articledata.main)
 }
@@ -115,6 +115,12 @@ window.addEventListener('hashchange', function() {
         font-size: 15px;
         padding: 5px;
         background: lightyellow;
+        display: block;
+        color: firebrick;
+        text-decoration: none;
+    }
+    #logo:hover {
+        background: lightgoldenrodyellow;
     }
     p.panelindex {
         margin-left: 5px;
