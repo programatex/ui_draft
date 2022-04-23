@@ -8,7 +8,7 @@
         <div id="page">
         </div>
 
-        <div id="panel">
+        <div id="panel" class="panelopen">
             <a id="logo" href="#home">数学が苦手な<br>プログラマのための<br>教科書</a>
 
             <div>
@@ -19,12 +19,45 @@
                 <p class="panelindex">目次</p>
                 <ul id="index" class="panellist"></ul>
             </div>
+
+            <button id="panelopen" class="panellist" onclick="panel()">
+                &lt;
+            </button>
         </div>
 
     </body>
 </html>
 <script src="make.js"></script>
 <script>
+
+    var panelopen = true;
+    panel()
+    function panel() {
+        if (panelopen) {
+            panelopen = false;
+            document.getElementById("panel").className = "panellist panelclose"
+            document.getElementById("panelopen").innerHTML = ">"
+        }
+        else {
+            panelopen = true;
+            document.getElementById("panel").className = "panellist panelopen"
+            document.getElementById("panelopen").innerHTML = "<"
+        }
+    }
+    mobile = false;
+    window.onresize = function() {
+        if (window.innerWidth>640) {
+            mobile = false;
+            panelopen = false;
+            panel();
+        }
+        else if (!mobile) {
+            panelopen = true;
+            panel();
+            mobile=true;
+        }
+    }
+
     var make;
     window.onload = function() {
         make = new MAKE();
@@ -94,8 +127,6 @@
     }
     h1.page {
         background: palegreen;
-        padding: 10px;
-        border-radius: 10px;
     }
     .page {
         padding: 10px;
@@ -176,5 +207,27 @@
     }
     button.panellist:hover,a.panellist:hover {
         background: lightsteelblue;
+    }
+    #panelopen {
+        position: absolute;
+        bottom: 0px;
+        left: 200px;
+        height: 50px;
+        width: 20px;
+        display: none;
+    }
+    #panel.panelclose {
+        margin-left: -190px;
+    }
+    @media (max-width: 640px) {
+        #panelopen {
+            display: block;
+        }
+        div#page {
+            margin-left: 10px;
+        }
+        #panel.panelopen {
+            box-shadow: 0 0 50px 0 darkslategrey;
+        }
     }
 </style>
