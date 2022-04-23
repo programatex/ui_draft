@@ -13,18 +13,12 @@
 
             <div>
                 <p class="panelindex">記事</p>
-                <ul class="panellist">
-                    <li class="panellist"><a href="#bintodec" class="panellist">2進数から10進数への変換</a></li>
-                    <li class="panellist"><a href="#exponentiation" class="panellist">自然数累乗</a></li>
-                    <li class="panellist"><a href="#notfound" class="panellist">Not Found</a></li>
+                <ul id="articles" class="panellist">
                 </ul>
             </div>
             <div>
                 <p class="panelindex">目次</p>
                 <ul id="index" class="panellist">
-                    <li class="panellist"><button class="panellist">プログラムの解説</button></li>
-                    <li class="panellist"><button class="panellist">数学的な解説</button></li>
-                    <li class="panellist"><button class="panellist">javascriptのプログラム例</button></li>
                 </ul>
             </div>
         </div>
@@ -34,44 +28,52 @@
 </html>
 <script src="make.js"></script>
 <script>
-var make
-window.onload = function() {
-    make = new MAKE();
-    show();
-}
-function show() {
-    let article = location.hash.substring(1);
-    if (article.length<1) {
-        location.hash = "home";
+    var make;
+    window.onload = function() {
+        make = new MAKE();
+        show();
+        articles();
     }
-    articledata = make.makehtml()
-    document.getElementById("page").replaceWith(articledata.main);
-    document.getElementById("index").replaceWith(articledata.index);
-    document.getElementsByTagName("title")[0].innerHTML = articledata.title+"数学が苦手なプログラマのための教科書";
-}
-
-window.addEventListener('hashchange', function() { // 記事の変更
-    show()
-}, false);
-
-function jump(id) {
-    targ = document.getElementById(id).getBoundingClientRect();
-    window.scrollBy({top:targ.top-20,behavior:"smooth"})
-}
-
-    function testrun() {
-        document.getElementById("result").innerHTML = bin_to_dec(document.getElementById("strs").value);
-    }
-
-    function bin_to_dec(strs) {
-        let result = 0;
-        for (let i = 0; i < strs.length; i++) {
-            console.log(strs[i],strs.length,i)
-            if (strs[i]=="1") {
-                result += 2**(strs.length-i-1);
-            }
+    function show() {
+        let article = location.hash.substring(1);
+        if (article.length<1) {
+            location.hash = "home";
         }
-        return result;
+        articledata = make.makehtml()
+        document.getElementById("page").replaceWith(articledata.main);
+        document.getElementById("index").replaceWith(articledata.index);
+        document.getElementsByTagName("title")[0].innerHTML = articledata.title+"数学が苦手なプログラマのための教科書";
+    }
+    function articles() {
+        let req = new XMLHttpRequest();
+        req.open("GET","./articles.txt",false);
+        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
+        req.send();
+        artcs = req.responseText.replace(/\r/g,"").split("\n")
+        console.log(artcs)
+        ulelm = document.createElement("ul")
+        ulelm.id = "articles"
+        ulelm.className = "panellist"
+        for (i=0;i<artcs.length;i++) {
+            lielm = document.createElement("li")
+            lielm.className = "panellist"
+            aelm = document.createElement("a")
+            aelm.className = "panellist"
+            aelm.innerHTML = artcs[i].split(",")[1]
+            aelm.href = "#"+artcs[i].split(",")[0]
+            lielm.appendChild(aelm);
+            ulelm.appendChild(lielm)
+        }
+        document.getElementById("articles").replaceWith(ulelm)
+    }
+
+    window.addEventListener('hashchange', function() { // 記事の変更
+        show()
+    }, false);
+
+    function jump(id) {
+        targ = document.getElementById(id).getBoundingClientRect();
+        window.scrollBy({top:targ.top-20,behavior:"smooth"})
     }
 </script>
 <style>

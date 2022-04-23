@@ -1,0 +1,4 @@
+home,home
+bintodec,2進数から10進数への変換
+exponentiation,自然数累乗
+notfound,Not Found
