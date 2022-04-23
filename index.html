@@ -20,13 +20,10 @@
             </div>
             <div>
                 <p class="panelindex">目次</p>
-                <ul class="panellist">
+                <ul id="index" class="panellist">
                     <li class="panellist"><button class="panellist">プログラムの解説</button></li>
                     <li class="panellist"><button class="panellist">数学的な解説</button></li>
                     <li class="panellist"><button class="panellist">javascriptのプログラム例</button></li>
-                    <li class="panellist"><button class="panellist">c#のプログラム例</button></li>
-                    <li class="panellist"><button class="panellist">pythonのプログラム例</button></li>
-                    <li class="panellist"><button class="panellist">javascriptの実行例</button></li>
                 </ul>
             </div>
         </div>
@@ -48,8 +45,10 @@ function show() {
     }
     articledata = make.makehtml()
     document.getElementById("page").replaceWith(articledata.main)
+    document.getElementById("index").replaceWith(articledata.index)
 }
-window.addEventListener('hashchange', function() {
+
+window.addEventListener('hashchange', function() { // 記事の変更
     show()
 }, false);
 
@@ -139,6 +138,9 @@ window.addEventListener('hashchange', function() {
         font-size: 12px;
         background: white;
         border: none;
+        text-align: left;
+        text-decoration: none;
+        color: black;
     }
     button.panellist:hover,a.panellist:hover {
         background: lightsteelblue;

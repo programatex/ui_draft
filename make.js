@@ -17,21 +17,29 @@ class MAKE {
         let data = this.get();
         let d = data.replace(/\r/g,"").split("\n");
         let elm = document.createElement("div")
+        let index = [];
+        let id = 0;
         elm.id = "page"
         console.log(d);
         let p = 0;
-        while (p<d.length) {
+        while (p<d.length) { // main
             let part = document.createElement("div");
             if (d[p].startsWith("# ")) {
                 part = document.createElement("h1");
                 part.innerHTML = d[p].slice(2);
                 part.className = "page"
+                part.id = "i"+id.toString();
+                index.push([1,d[p].slice(2),id])
+                id++;
                 elm.appendChild(part);
             }
             else if (d[p].startsWith("## ")) {
                 part = document.createElement("h2");
-                part.innerHTML = d[p].slice(2);
+                part.innerHTML = d[p].slice(3);
                 part.className = "page"
+                part.id = "i"+id.toString();
+                index.push([2,d[p].slice(3),id])
+                id++;
                 elm.appendChild(part);
             }
             else {
@@ -77,11 +85,25 @@ class MAKE {
                     part.className = "page"
                     elm.appendChild(part);
                 }
-
             }
-
             p++;
         }
-        return {"main":elm};
+        console.log(index)
+        let ielm = document.createElement("ul")
+        ielm.className = "panellist"
+        ielm.id = "index"
+        for (let i=0;i<index.length;i++) {
+            let lielm = document.createElement("li")
+            let buttonelm = document.createElement("button")
+            lielm.className = "panellist"
+            buttonelm.className = "panellist"
+
+            buttonelm.innerHTML = index[i][1]
+
+            ielm.appendChild(buttonelm)
+            ielm.appendChild(lielm)
+        }
+
+        return {"main":elm,"index":ielm};
     }
 }
