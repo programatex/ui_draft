@@ -33,7 +33,7 @@ class MAKE {
                 let pelm = document.createElement("p");
                 pelm.className = "page";
                 while (true) {
-                    if (p>=d.length||d[p].startsWith("## ")) {
+                    if (p>=d.length||d[p].startsWith("## ")||d[p].startsWith("# ")) {
                         if (pelm.innerHTML.length>0) {
                             part.appendChild(pelm);
                         }
@@ -77,6 +77,6 @@ class MAKE {
 
             p++;
         }
-        return {main:elm};
+        return {"main":elm};
     }
 }

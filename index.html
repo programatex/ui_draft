@@ -15,7 +15,7 @@
                 <p class="panelindex">記事</p>
                 <ul class="panellist">
                     <li class="panellist"><a href="#bintodec" class="panellist">2進数から10進数への変換</a></li>
-                    <li class="panellist"><a href="" class="panellist">2進数と10進数</a></li>
+                    <li class="panellist"><a href="#" class="panellist">2進数と10進数</a></li>
                 </ul>
             </div>
             <div>
@@ -36,11 +36,22 @@
 </html>
 <script src="make.js"></script>
 <script>
+var make
 window.onload = function() {
+    let article = location.hash.substring(1);
+    if (article.length<1) {
+        location.hash = "home"
+    }
     make = new MAKE()
-    articledata = make.makehtml()
-    document.getElementById("page").replaceWith = articledata.main
+    show();
 }
+function show() {
+    articledata = make.makehtml()
+    document.getElementById("page").replaceWith(articledata.main)
+}
+window.addEventListener('hashchange', function() {
+    show()
+}, false);
 
     function testrun() {
         document.getElementById("result").innerHTML = bin_to_dec(document.getElementById("strs").value);
