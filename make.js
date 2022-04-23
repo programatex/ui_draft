@@ -61,6 +61,12 @@ class MAKE {
                     if (d[p].startsWith("```")) {
                         let preelm = document.createElement("pre");
                         preelm.className = "page";
+                        if (d[p].length>3) {
+                            let pelm = document.createElement("p");
+                            pelm.className = "page lang";
+                            pelm.innerHTML = d[p].substring(3).split(" ")[0]
+                            preelm.appendChild(pelm);
+                        }
                         let codeelm = document.createElement("code");
                         codeelm.className = "page";
                         p++;
@@ -68,7 +74,7 @@ class MAKE {
                             if (p>=d.length||d[p].startsWith("```")) {
                                 break;
                             }
-                            codeelm.innerHTML += d[p]+"\n";
+                            codeelm.innerHTML += this.escapeHTML(d[p])+"\n";
                             p++;
                         }
                         if (pelm.innerHTML.length>0) {
@@ -115,4 +121,13 @@ class MAKE {
 
         return {"main":elm,"index":ielm,"title":title};
     }
+    escapeHTML(str) { // https://qiita.com/hrdaya/items/4beebbdb57009b405d2d
+        return str
+            .replace(/&esc;/g, '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    };
 }

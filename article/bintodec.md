@@ -18,7 +18,7 @@ strsは2進数を1桁ごとに取得
 
 ## javascriptのプログラム例
 引数strsに文字列として二進数を渡すと10進数に変換された整数が返り値になります  
-```
+```js
 function bin_to_dec(strs) {
     let result = 0;
     for (let i = 0; i < strs.length; i++) {
@@ -32,7 +32,7 @@ function bin_to_dec(strs) {
 
 ## c#のプログラム例
 引数strsに文字列として二進数を渡すと10進数に変換された整数が返り値になります  
-```
+```cs
 static int bin_to_dec(string strs) {
     int result = 0;
     for (int i=0; i < strs.Length; i++) {
@@ -46,7 +46,7 @@ static int bin_to_dec(string strs) {
 
 ## pythonのプログラム例
 引数strsに文字列として二進数を渡すと10進数に変換された整数が返り値になります  
-```
+```py
 def bin_to_dec(strs):
     result = 0
     for i in range(len(strs)):
