@@ -97,6 +97,7 @@ class MAKE {
             let buttonelm = document.createElement("button")
             lielm.className = "panellist"
             buttonelm.className = "panellist"
+            buttonelm.addEventListener("click",function() { jump("i"+index[i][2]) })
 
             buttonelm.innerHTML = index[i][1]
 

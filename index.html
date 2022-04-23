@@ -52,6 +52,11 @@ window.addEventListener('hashchange', function() { // 記事の変更
     show()
 }, false);
 
+function jump(id) {
+    targ = document.getElementById(id).getBoundingClientRect();
+    window.scrollBy({top:targ.top-20,behavior:"smooth"})
+}
+
     function testrun() {
         document.getElementById("result").innerHTML = bin_to_dec(document.getElementById("strs").value);
     }
