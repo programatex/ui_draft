@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>2進数から10進数への変換</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="page">
+        </div>
+
+        <div id="panel">
+            <p id="logo">数学が苦手な<br>プログラマのための<br>教科書</p>
+
+            <div>
+                <p class="panelindex">記事</p>
+                <ul class="panellist">
+                    <li class="panellist"><a href="#bintodec" class="panellist">2進数から10進数への変換</a></li>
+                    <li class="panellist"><a href="" class="panellist">2進数と10進数</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="panelindex">目次</p>
+                <ul class="panellist">
+                    <li class="panellist"><button class="panellist">プログラムの解説</button></li>
+                    <li class="panellist"><button class="panellist">数学的な解説</button></li>
+                    <li class="panellist"><button class="panellist">javascriptのプログラム例</button></li>
+                    <li class="panellist"><button class="panellist">c#のプログラム例</button></li>
+                    <li class="panellist"><button class="panellist">pythonのプログラム例</button></li>
+                    <li class="panellist"><button class="panellist">javascriptの実行例</button></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </body>
+</html>
+<script src="make.js"></script>
+<script>
+window.onload = function() {
+    make = new MAKE()
+    articledata = make.makehtml()
+    document.getElementById("page").replaceWith = articledata.main
+}
+
+    function testrun() {
+        document.getElementById("result").innerHTML = bin_to_dec(document.getElementById("strs").value);
+    }
+
+    function bin_to_dec(strs) {
+        let result = 0;
+        for (let i = 0; i < strs.length; i++) {
+            console.log(strs[i],strs.length,i)
+            if (strs[i]=="1") {
+                result += 2**(strs.length-i-1);
+            }
+        }
+        return result;
+    }
+</script>
+<style>
+    body {
+        background: powderblue;
+        margin: 30px;
+    }
+    pre {
+        background: darkslategray;
+        color: white;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 10px;
+        width: 70%;
+        resize: none;
+    }
+    h1.page {
+        background: lightgreen;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .page {
+        padding: 10px;
+        border-radius: 10px;
+    }
+    h2.page {
+        background: aquamarine;
+        margin-left: 10px;
+    }
+    div.page {
+        background: wheat;
+        margin-left: 20px;
+    }
+    div#page {
+        margin-left: 160px;
+    }
+    div#panel {
+        position: fixed;
+        background: whitesmoke;
+        height: 100%;
+        width: 160px;
+        top: 0;
+        left: 0;
+    }
+    #logo {
+        margin: 5px;
+        font-size: 15px;
+        padding: 5px;
+        background: lightyellow;
+    }
+    p.panelindex {
+        margin-left: 5px;
+    }
+    ul.panellist {
+        padding: 0;
+        margin: 0;
+        margin-left: 10px;
+        list-style: none;
+    }
+    li.panellist {
+        font-size: 12px;
+        margin: 2px;
+    }
+    button.panellist,a.panellist {
+        font-size: 12px;
+        background: white;
+        border: none;
+    }
+    button.panellist:hover,a.panellist:hover {
+        background: lightsteelblue;
+    }
+</style>
