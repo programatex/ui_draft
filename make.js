@@ -10,13 +10,14 @@ class MAKE {
         if (req.status!=200&&req.status!=300) {
             let errormsg = req.responseText
             console.error(errormsg)
-            return '# Article not found\nSorry, "'+article+'" page was not found  \n```\n'+req.status.toString()
+            return '# '+req.status.toString()+' Article not found\nSorry, "'+article+'" page was not found'
         }
         return req.response;
     }
     makehtml() {
         let data = this.get();
         let d = data.replace(/\r/g,"").split("\n");
+        let title = "";
         let elm = document.createElement("div")
         let index = [];
         let id = 0;
@@ -26,6 +27,10 @@ class MAKE {
         while (p<d.length) { // main
             let part = document.createElement("div");
             if (d[p].startsWith("# ")) {
+                if (title=="") {
+                    title = d[p].slice(2);
+                    console.log(title)
+                }
                 part = document.createElement("h1");
                 part.innerHTML = d[p].slice(2);
                 part.className = "page"
@@ -105,7 +110,10 @@ class MAKE {
             lielm.appendChild(buttonelm)
             ielm.appendChild(lielm)
         }
+        if (title!="") {
+            title = title+" - ";
+        }
 
-        return {"main":elm,"index":ielm};
+        return {"main":elm,"index":ielm,"title":title};
     }
 }

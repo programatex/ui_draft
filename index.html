@@ -36,17 +36,18 @@
 <script>
 var make
 window.onload = function() {
-    make = new MAKE()
+    make = new MAKE();
     show();
 }
 function show() {
     let article = location.hash.substring(1);
     if (article.length<1) {
-        location.hash = "home"
+        location.hash = "home";
     }
     articledata = make.makehtml()
-    document.getElementById("page").replaceWith(articledata.main)
-    document.getElementById("index").replaceWith(articledata.index)
+    document.getElementById("page").replaceWith(articledata.main);
+    document.getElementById("index").replaceWith(articledata.index);
+    document.getElementsByTagName("title")[0].innerHTML = articledata.title+"数学が苦手なプログラマのための教科書";
 }
 
 window.addEventListener('hashchange', function() { // 記事の変更
@@ -85,7 +86,9 @@ function jump(id) {
         margin: 10px;
         border-radius: 10px;
         width: 70%;
+        max-height: 500px;
         resize: none;
+        overflow: auto;
     }
     h1.page {
         background: lightgreen;
