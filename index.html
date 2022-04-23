@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>2進数から10進数への変換</title>
+        <title>数学が苦手なプログラマのための教科書</title>
         <meta charset="utf-8">
     </head>
     <body>
@@ -113,6 +113,8 @@ function jump(id) {
         width: 160px;
         top: 0;
         left: 0;
+        border: 0px;
+        border-right: 1px gray solid;
     }
     #logo {
         margin: 5px;
@@ -122,6 +124,7 @@ function jump(id) {
         display: block;
         color: firebrick;
         text-decoration: none;
+        border: 1px black solid;
     }
     #logo:hover {
         background: lightgoldenrodyellow;
@@ -137,15 +140,19 @@ function jump(id) {
     }
     li.panellist {
         font-size: 12px;
-        margin: 2px;
+        margin: 7px;
     }
     button.panellist,a.panellist {
-        font-size: 12px;
+        display: inline-block;
+        font-size: 10px;
         background: white;
         border: none;
         text-align: left;
         text-decoration: none;
         color: black;
+        border: 1px black solid;
+        margin: 0px;
+        padding: 3px;
     }
     button.panellist:hover,a.panellist:hover {
         background: lightsteelblue;
