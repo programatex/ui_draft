@@ -4,7 +4,9 @@ class MAKE {
         console.log(article)
         let req = new XMLHttpRequest();
         req.open("GET","./article/"+article+".md",false);
+        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=60');
         req.send();
+        
         if (req.status!=200&&req.status!=300) {
             let errormsg = req.responseText
             console.error(errormsg)
