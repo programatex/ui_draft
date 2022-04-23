@@ -45,7 +45,8 @@
         }
     }
     mobile = false;
-    window.onresize = function() {
+    window.onresize = resize
+    function resize() {
         if (window.innerWidth>640) {
             mobile = false;
             panelopen = false;
@@ -57,6 +58,7 @@
             mobile=true;
         }
     }
+    resize()
 
     var make;
     window.onload = function() {
