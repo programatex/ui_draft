@@ -8,21 +8,23 @@
         <div id="page">
         </div>
 
-        <div id="panel" class="panelopen">
+        <div id="panel" class="panelopen" onclick="panelclick()">
             <a id="logo" href="#home">数学が苦手な<br>プログラマのための<br>教科書</a>
 
-            <div>
-                <p class="panelindex">記事</p>
-                <ul id="articles" class="panellist"></ul>
-            </div>
-            <div>
-                <p class="panelindex">目次</p>
-                <ul id="index" class="panellist"></ul>
+            <div id="panelbottom">
+
+                <div>
+                    <p class="panelindex">記事</p>
+                    <ul id="articles" class="panellist"></ul>
+                </div>
+                <div>
+                    <p class="panelindex">目次</p>
+                    <ul id="index" class="panellist"></ul>
+                </div>
+
             </div>
 
-            <button id="panelopen" class="panellist" onclick="panel()">
-                &lt;
-            </button>
+
         </div>
 
     </body>
@@ -36,15 +38,12 @@
         if (panelopen) {
             panelopen = false;
             document.getElementById("panel").className = "panellist panelclose"
-            document.getElementById("panelopen").innerHTML = ">"
         }
         else {
             panelopen = true;
             document.getElementById("panel").className = "panellist panelopen"
-            document.getElementById("panelopen").innerHTML = "<"
         }
     }
-    mobile = false;
     window.onresize = resize
     function resize() {
         if (window.innerWidth>640) {
@@ -52,13 +51,18 @@
             panelopen = false;
             panel();
         }
-        else if (!mobile) {
+        else if (mobile) {
             panelopen = true;
             panel();
             mobile=true;
         }
     }
-    resize()
+    {
+        mobile = false;
+        panelopen = false;
+        panel();
+        resize();
+    }
 
     var make;
     window.onload = function() {
@@ -76,6 +80,7 @@
         document.getElementById("index").replaceWith(articledata.index);
         document.getElementsByTagName("title")[0].innerHTML = articledata.title+"数学が苦手なプログラマのための教科書";
     }
+
     function articles() {
         let req = new XMLHttpRequest();
         req.open("GET","./articles.txt",false);
@@ -97,6 +102,19 @@
             ulelm.appendChild(lielm)
         }
         document.getElementById("articles").replaceWith(ulelm)
+    }
+
+    function pageclick() {
+        console.log(1,window.innerWidth)
+        if (window.innerWidth<=640) {
+            panelopen = true;
+            panel()
+        }
+    }
+    function panelclick() {
+        if (!panelopen) {
+            panel()
+        }
     }
 
     window.addEventListener('hashchange', function() { // 記事の変更
@@ -160,7 +178,7 @@
     div#panel {
         position: fixed;
         background: whitesmoke;
-        height: 100%;
+        height: 100vh;
         width: 200px;
         top: 0;
         left: 0;
@@ -169,25 +187,26 @@
     }
     #logo {
         border-radius: 3px;
-        margin: 5px;
         font-size: 15px;
+        margin: 5px;
         padding: 5px;
         background: lightyellow;
         display: block;
         color: firebrick;
         text-decoration: none;
+        height: 70px;
         border: 1px yellowgreen solid;
     }
     #logo:hover {
         background: lightgoldenrodyellow;
     }
     p.panelindex {
-        margin-left: 5px;
+        margin: 0px;
     }
     ul.panellist {
         padding: 0;
         margin: 0;
-        margin-left: 10px;
+        margin-left: 5px;
         list-style: none;
     }
     li.panellist {
@@ -210,26 +229,31 @@
     button.panellist:hover,a.panellist:hover {
         background: lightsteelblue;
     }
-    #panelopen {
-        position: absolute;
-        bottom: 0px;
-        left: 200px;
-        height: 50px;
-        width: 20px;
-        display: none;
-    }
     #panel.panelclose {
-        margin-left: -190px;
+        margin-left: -200px;
+    }
+    #panelbottom {
+        bottom: 5px;
+        max-height: calc(100% - 150px);
+        overflow-y: auto;
+        padding: 5px;
+        margin-left: 5px;
+        display: block;
+        width: 180px;
+        position: absolute;
     }
     @media (max-width: 640px) {
-        #panelopen {
-            display: block;
-        }
         div#page {
-            margin-left: 10px;
+            margin-left: 20px;
+        }
+        #panel {
+            box-shadow: 0 0 10px 0 darkslategrey;
         }
         #panel.panelopen {
             box-shadow: 0 0 50px 0 darkslategrey;
+        }
+        div#panel.panelclose {
+            padding-right: 20px;
         }
     }
 </style>
