@@ -3,7 +3,7 @@ class MAKE {
         let article = location.hash.substring(1);
         console.log(article)
         let req = new XMLHttpRequest();
-        req.open("GET","/article/"+article+".md",false);
+        req.open("GET","./article/"+article+".md",false);
         req.send();
         if (req.status!=200) {
             let errormsg = req.responseText
