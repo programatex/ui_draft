@@ -5,11 +5,10 @@ class MAKE {
         let req = new XMLHttpRequest();
         req.open("GET","./article/"+article+".md",false);
         req.send();
-        if (req.status!=200) {
+        if (req.status!=200&&req.status!=300) {
             let errormsg = req.responseText
-            errormsg = errormsg.match(/<pre>(.+?)<\/pre>/)[1]
             console.error(errormsg)
-            return '# Article not found\nSorry, "'+article+'" page was not found  \n```\n'+req.status.toString()+" "+errormsg
+            return '# Article not found\nSorry, "'+article+'" page was not found  \n```\n'+req.status.toString()
         }
         return req.response;
     }
