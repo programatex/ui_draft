@@ -7,15 +7,32 @@ class MAKE {
         req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
         req.send();
         
+        let data = req.response;
         if (req.status!=200&&req.status!=300) {
             let errormsg = req.responseText
             console.error(errormsg)
-            return '# '+req.status.toString()+' Article not found\nSorry, "'+article+'" page was not found'
+            data = '# '+req.status.toString()+' Article not found\nSorry, "'+article+'" page was not found'
+            return data;
         }
-        return req.response;
+        
+        let info = "";
+        req.abort();
+        req.open("GET","./articles.txt",false);
+        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
+        req.send();
+        let artcs = req.responseText.replace(/\r/g,"").split("\n")
+        for (let i=0;i<artcs.length;i++) {
+            if (!artcs[i].startsWith(article)&&artcs[i].length>0) {
+                info = artcs[i];
+            }
+        }
+
+        return data;
     }
     makehtml() {
         let data = this.get();
+        
+
         let d = data.replace(/\r/g,"").split("\n");
         let title = "";
         let elm = document.createElement("div");
