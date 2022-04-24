@@ -12,10 +12,21 @@ x^n は xをn回掛けたもの
 
 ## javascriptのプログラム例
 引数x,nに整数としてx^nを渡すと結果の整数が返り値になります  
-```
+```js
 function exponentiation(x,n) {
     let result = 1;
     for (let i = 0;i < n;i++) {
+        result *= x;
+    }
+    return result;
+}
+```
+## Cのプログラム例
+引数x,nに整数としてx^nを渡すと結果の整数が返り値になります  
+```c
+int exponentiation(int x,int n) {
+    int result = 1;
+    for (int i=0;i<n;i++) {
         result *= x;
     }
     return result;
