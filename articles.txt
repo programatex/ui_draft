@@ -1,6 +1,12 @@
-home,home
-bintodec,2進数から10進数への変換
-exponentiation,自然数累乗
-factonal,自然数階乗
-notfound,Not Found
-reference/articlefile,記事のファイル形式について
+// 記事の一覧
+// path,title,status
+// status 一応完成:0 書きかけ:1
+
+home,home,1
+
+bintodec,2進数から10進数への変換,0
+exponentiation,自然数累乗,0
+factonal,自然数階乗,0
+
+reference/articlefile,記事のファイル形式について,1
+schedule/articles,記事の予定,1

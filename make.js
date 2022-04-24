@@ -7,15 +7,33 @@ class MAKE {
         req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
         req.send();
         
+        let data = req.response;
         if (req.status!=200&&req.status!=300) {
             let errormsg = req.responseText
             console.error(errormsg)
-            return '# '+req.status.toString()+' Article not found\nSorry, "'+article+'" page was not found'
+            data = '# '+req.status.toString()+' Article not found\nSorry, "'+article+'" page was not found'
+            return data;
         }
-        return req.response;
+        
+        let info = "";
+        req.abort();
+        req.open("GET","./articles.txt",false);
+        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
+        req.send();
+        let artcs = req.responseText.replace(/\r/g,"").split("\n")
+        for (let i=0;i<artcs.length;i++) {
+            if (artcs[i].startsWith(article)&&artcs[i].length>0) {
+                info = artcs[i];
+            }
+        }
+        console.log(info,article)
+
+        return data;
     }
     makehtml() {
         let data = this.get();
+        
+
         let d = data.replace(/\r/g,"").split("\n");
         let title = "";
         let elm = document.createElement("div");
@@ -27,16 +45,17 @@ class MAKE {
         while (p<d.length) { // main
             let part = document.createElement("div");
             if (d[p].startsWith("# ")) {
-                if (title=="") {
-                    title = d[p].slice(2);
-                    console.log(title);
-                }
                 part = document.createElement("h1");
                 part.innerHTML = d[p].slice(2);
                 part.className = "page";
                 part.id = "i"+id.toString();
                 index.push([1,d[p].slice(2),id]);
                 id++;
+                if (title=="") {
+                    title = d[p].slice(2);
+                    console.log(title);
+                    part.className = "page pagetitle";
+                }
                 elm.appendChild(part);
             }
             else if (d[p].startsWith("## ")) {

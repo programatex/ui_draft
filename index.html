@@ -72,7 +72,7 @@
         if (article.length<1) {
             location.hash = "home";
         }
-        articledata = make.makehtml()
+        articledata = make.makehtml();
         document.getElementById("page").replaceWith(articledata.main);
         document.getElementById("index").replaceWith(articledata.index);
         document.getElementsByTagName("title")[0].innerHTML = articledata.title+"数学が苦手なプログラマのための教科書";
@@ -83,20 +83,21 @@
         req.open("GET","./articles.txt",false);
         req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
         req.send();
-        artcs = req.responseText.replace(/\r/g,"").split("\n")
-        console.log(artcs)
-        ulelm = document.createElement("ul")
-        ulelm.id = "articles"
-        ulelm.className = "panellist"
+        artcs = req.responseText.replace(/\r/g,"").split("\n");
+        ulelm = document.createElement("ul");
+        ulelm.id = "articles";
+        ulelm.className = "panellist";
         for (i=0;i<artcs.length;i++) {
-            lielm = document.createElement("li")
-            lielm.className = "panellist"
-            aelm = document.createElement("a")
-            aelm.className = "panellist"
-            aelm.innerHTML = artcs[i].split(",")[1]
-            aelm.href = "#"+artcs[i].split(",")[0]
-            lielm.appendChild(aelm);
-            ulelm.appendChild(lielm)
+            if (!artcs[i].startsWith("//")&&artcs[i].length>0) {
+                lielm = document.createElement("li");
+                lielm.className = "panellist";
+                aelm = document.createElement("a");
+                aelm.className = "panellist";
+                aelm.innerHTML = artcs[i].split(",")[1];
+                aelm.href = "#"+artcs[i].split(",")[0];
+                lielm.appendChild(aelm);
+                ulelm.appendChild(lielm);
+            }
         }
         document.getElementById("articles").replaceWith(ulelm)
     }
@@ -105,22 +106,23 @@
         console.log(1,window.innerWidth)
         if (window.innerWidth<=640) {
             panelopen = true;
-            panel()
+            panel();
         }
     }
     function panelclick() {
         if (!panelopen) {
-            panel()
+            panel();
         }
     }
 
     window.addEventListener('hashchange', function() { // 記事の変更
-        show()
+        window.scrollTo({top:0,behavior:"smooth"});
+        show();
     }, false);
 
     function jump(id) {
         targ = document.getElementById(id).getBoundingClientRect();
-        window.scrollBy({top:targ.top-20,behavior:"smooth"})
+        window.scrollTo({top:targ.top-20,behavior:"smooth"});
     }
 </script>
 <style>
@@ -133,6 +135,7 @@
         color: white;
         padding: 10px;
         margin: 10px;
+        margin-left: 20px;
         border-radius: 10px;
         width: 70%;
         max-height: 500px;
@@ -145,8 +148,21 @@
     h1.page {
         background: palegreen;
     }
+    h1.pagetitle {
+        text-align: center;
+        background: chartreuse;
+        font-size: 35px;
+        margin: 0px;
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
     div.panellist {
         margin: 10px;
+    }
+    p.page {
+        margin: 5px;
+        margin-left: 10px;
+        padding: 5px;
     }
     .page {
         padding: 10px;
