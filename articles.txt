@@ -1,5 +1,6 @@
 home,home
 bintodec,2進数から10進数への変換
 exponentiation,自然数累乗
+factonal,自然数階乗
 notfound,Not Found
 reference/articlefile,記事のファイル形式について
