@@ -12,13 +12,13 @@ class MAKE {
             let errormsg = req.responseText
             console.error(errormsg)
             data = '# '+req.status.toString()+' Article not found\nSorry, "'+article+'" page was not found'
-            return data;
+            return [data,"not found,Not Found,0"];
         }
         
         let info = "";
         req.abort();
         req.open("GET","./articles.txt",false);
-        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
+        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=7200');
         req.send();
         let artcs = req.responseText.replace(/\r/g,"").split("\n")
         for (let i=0;i<artcs.length;i++) {
@@ -28,10 +28,12 @@ class MAKE {
         }
         console.log(info,article)
 
-        return data;
+        return [data,info];
     }
     makehtml() {
-        let data = this.get();
+        let get = this.get();
+        let data = get[0];
+        let info = get[1];
         
 
         let d = data.replace(/\r/g,"").split("\n");
@@ -46,24 +48,37 @@ class MAKE {
             let part = document.createElement("div");
             if (d[p].startsWith("# ")) {
                 part = document.createElement("h1");
-                part.innerHTML = d[p].slice(2);
+                part.innerHTML = this.escapeHTML(d[p].slice(2));
                 part.className = "page";
                 part.id = "i"+id.toString();
-                index.push([1,d[p].slice(2),id]);
+                index.push([1,part.innerHTML,id]);
                 id++;
+
                 if (title=="") {
-                    title = d[p].slice(2);
-                    console.log(title);
+                    title = this.escapeHTML(d[p].slice(2));
                     part.className = "page pagetitle";
+                    if (info.split(",")[2]!="0") {
+                        let pelm = document.createElement("p");
+                        pelm.innerHTML = "書きかけの記事です"
+                        if (info.split(",")[2]=="2") {
+                            pelm.innerHTML = "変更予定のある記事です"
+                        }
+                        pelm.className = "page";
+                        pelm.className = "page writtingpage";
+                        let cmsg = document.createElement("div");
+                        cmsg.className = "page writtingpage";
+                        cmsg.appendChild(pelm);
+                        elm.appendChild(cmsg);
+                    }
                 }
                 elm.appendChild(part);
             }
             else if (d[p].startsWith("## ")) {
                 part = document.createElement("h2");
-                part.innerHTML = d[p].slice(3);
+                part.innerHTML = this.escapeHTML(d[p].slice(3));
                 part.className = "page";
                 part.id = "i"+id.toString();
-                index.push([2,d[p].slice(3),id]);
+                index.push([2,part.innerHTML,id]);
                 id++;
                 elm.appendChild(part);
             }
@@ -108,7 +123,7 @@ class MAKE {
                         pelm.className = "page";
                     }
                     else {
-                        pelm.innerHTML += d[p].replace(/\ \ /g,"<br>");
+                        pelm.innerHTML += this.escapeHTML(d[p]).replace(/\ \ /g,"<br>");
                     }
                     p++;
                 }
