@@ -22,10 +22,11 @@ class MAKE {
         req.send();
         let artcs = req.responseText.replace(/\r/g,"").split("\n")
         for (let i=0;i<artcs.length;i++) {
-            if (!artcs[i].startsWith(article)&&artcs[i].length>0) {
+            if (artcs[i].startsWith(article)&&artcs[i].length>0) {
                 info = artcs[i];
             }
         }
+        console.log(info,article)
 
         return data;
     }
@@ -44,16 +45,17 @@ class MAKE {
         while (p<d.length) { // main
             let part = document.createElement("div");
             if (d[p].startsWith("# ")) {
-                if (title=="") {
-                    title = d[p].slice(2);
-                    console.log(title);
-                }
                 part = document.createElement("h1");
                 part.innerHTML = d[p].slice(2);
                 part.className = "page";
                 part.id = "i"+id.toString();
                 index.push([1,d[p].slice(2),id]);
                 id++;
+                if (title=="") {
+                    title = d[p].slice(2);
+                    console.log(title);
+                    part.className = "page pagetitle";
+                }
                 elm.appendChild(part);
             }
             else if (d[p].startsWith("## ")) {
