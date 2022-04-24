@@ -73,15 +73,6 @@ class MAKE {
                 }
                 elm.appendChild(part);
             }
-            else if (d[p].startsWith("### ")) {
-                part = document.createElement("h3");
-                part.innerHTML = this.escapeHTML(d[p].slice(4));
-                part.className = "page";
-                part.id = "i"+id.toString();
-                index.push([3,part.innerHTML,id]);
-                id++;
-                elm.appendChild(part);
-            }
             else if (d[p].startsWith("## ")) {
                 part = document.createElement("h2");
                 part.innerHTML = this.escapeHTML(d[p].slice(3));
