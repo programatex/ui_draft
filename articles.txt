@@ -8,6 +8,8 @@ bintodec,2進数から10進数への変換,0
 exponentiation,自然数累乗,0
 factonal,自然数階乗,1
 permutation,順列,1
+quadraticequation,二次方程式,1
+quadraticequation_discriminant,二次方程式 - 判別式,1
 
 reference/articlefile,記事のファイル形式について,1
 schedule/articles,記事の予定,2
