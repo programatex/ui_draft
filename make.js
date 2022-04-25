@@ -1,42 +1,48 @@
 class MAKE {
-    get() {
-        let article = location.hash.substring(1);
-        console.log(article)
-        let req = new XMLHttpRequest();
-        req.open("GET","./article/"+article+".md",false);
-        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
-        req.send();
-        
-        let data = req.response;
-        if (req.status!=200&&req.status!=300) {
-            let errormsg = req.responseText
-            console.error(errormsg)
-            data = '# '+req.status.toString()+' Article not found\nSorry, "'+article+'" page was not found'
-            return [data,"not found,Not Found,0"];
+    async get() {
+        const article = location.hash.substring(1);
+        console.log(article);
+
+        const articleRes = await fetch(`./article/${article}.md`, {
+            method: "GET",
+            headers: {
+                "Catch-Control": "max-age=3600"
+            }
+        });
+
+        if (articleRes.status !== 200 && articleRes.status !== 300) {
+            const errormsg = await articleRes.text();
+            console.error(errormsg);
+            const data = `# ${articleRes.status.toString()} Article not found\nSorry, "${article}" page was not found`;
+            return [data, "not found,Not Found,0"];
         }
-        
+
+        const data = await articleRes.text();
+
         let info = "";
-        req.abort();
-        req.open("GET","./articles.txt",false);
-        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=7200');
-        req.send();
-        let artcs = req.responseText.replace(/\r/g,"").split("\n")
-        for (let i=0;i<artcs.length;i++) {
-            if (artcs[i].startsWith(article)&&artcs[i].length>0) {
+        const articleListRes = await fetch("./articles.txt", {
+            method: "GET",
+            headers: {
+                "Catch-Control": "max-age=7200"
+            }
+        });
+        const artcs = (await articleListRes.text()).replace(/\r/g, "").split("\n");
+        for (let i = 0; i < artcs.length; i++) {
+            if (artcs[i].startsWith(article) && artcs[i].length > 0) {
                 info = artcs[i];
             }
         }
-        console.log(info,article)
+        console.log(info, article);
 
-        return [data,info];
+        return [data, info];
     }
-    makehtml() {
-        let get = this.get();
+    async makehtml() {
+        let get = await this.get();
+
         let data = get[0];
         let info = get[1];
-        
 
-        let d = data.replace(/\r/g,"").split("\n");
+        let d = data.replace(/\r/g, "").split("\n");
         let title = "";
         let elm = document.createElement("div");
         let index = [];
@@ -44,23 +50,23 @@ class MAKE {
         elm.addEventListener("click", closePanel);
         elm.id = "page"
         let p = 0;
-        while (p<d.length) { // main
+        while (p < d.length) { // main
             let part = document.createElement("div");
             if (d[p].startsWith("# ")) {
                 part = document.createElement("h1");
                 part.innerHTML = this.escapeHTML(d[p].slice(2));
                 part.className = "page";
-                part.id = "i"+id.toString();
-                index.push([1,part.innerHTML,id]);
+                part.id = "i" + id.toString();
+                index.push([1, part.innerHTML, id]);
                 id++;
 
-                if (title=="") {
+                if (title == "") {
                     title = this.escapeHTML(d[p].slice(2));
                     part.className = "page pagetitle";
-                    if (info.split(",")[2]!="0") {
+                    if (info.split(",")[2] != "0") {
                         let pelm = document.createElement("p");
                         pelm.innerHTML = "書きかけの記事です"
-                        if (info.split(",")[2]=="2") {
+                        if (info.split(",")[2] == "2") {
                             pelm.innerHTML = "変更予定のある記事です"
                         }
                         pelm.className = "page";
@@ -77,8 +83,8 @@ class MAKE {
                 part = document.createElement("h2");
                 part.innerHTML = this.escapeHTML(d[p].slice(3));
                 part.className = "page";
-                part.id = "i"+id.toString();
-                index.push([2,part.innerHTML,id]);
+                part.id = "i" + id.toString();
+                index.push([2, part.innerHTML, id]);
                 id++;
                 elm.appendChild(part);
             }
@@ -86,8 +92,8 @@ class MAKE {
                 let pelm = document.createElement("p");
                 pelm.className = "page";
                 while (true) {
-                    if (p>=d.length||d[p].startsWith("## ")||d[p].startsWith("# ")) {
-                        if (pelm.innerHTML.length>0) {
+                    if (p >= d.length || d[p].startsWith("## ") || d[p].startsWith("# ")) {
+                        if (pelm.innerHTML.length > 0) {
                             part.appendChild(pelm);
                         }
                         p--;
@@ -96,7 +102,7 @@ class MAKE {
                     if (d[p].startsWith("```")) {
                         let preelm = document.createElement("pre");
                         preelm.className = "page";
-                        if (d[p].length>3) {
+                        if (d[p].length > 3) {
                             let pelm = document.createElement("p");
                             pelm.className = "page lang";
                             pelm.innerHTML = d[p].substring(3).split(" ")[0]
@@ -106,13 +112,13 @@ class MAKE {
                         codeelm.className = "page";
                         p++;
                         while (true) {
-                            if (p>=d.length||d[p].startsWith("```")) {
+                            if (p >= d.length || d[p].startsWith("```")) {
                                 break;
                             }
-                            codeelm.innerHTML += this.escapeHTML(d[p])+"\n";
+                            codeelm.innerHTML += this.escapeHTML(d[p]) + "\n";
                             p++;
                         }
-                        if (pelm.innerHTML.length>0) {
+                        if (pelm.innerHTML.length > 0) {
                             part.appendChild(pelm);
                         }
 
@@ -123,11 +129,11 @@ class MAKE {
                         pelm.className = "page";
                     }
                     else {
-                        pelm.innerHTML += this.escapeHTML(d[p]).replace(/\ \ /g,"<br>");
+                        pelm.innerHTML += this.escapeHTML(d[p]).replace(/\ \ /g, "<br>");
                     }
                     p++;
                 }
-                if (part.children.length>0) {
+                if (part.children.length > 0) {
                     part.className = "page";
                     elm.appendChild(part);
                 }
@@ -138,23 +144,23 @@ class MAKE {
         let ielm = document.createElement("ul");
         ielm.className = "panellist";
         ielm.id = "index";
-        for (let i=0;i<index.length;i++) {
+        for (let i = 0; i < index.length; i++) {
             let lielm = document.createElement("li");
             let buttonelm = document.createElement("button");
             lielm.className = "panellist";
             buttonelm.className = "panellist";
-            buttonelm.addEventListener("click",function() { jump("i"+index[i][2]) });
+            buttonelm.addEventListener("click", function () { jump("i" + index[i][2]) });
 
             buttonelm.innerHTML = index[i][1];
 
             lielm.appendChild(buttonelm);
             ielm.appendChild(lielm);
         }
-        if (title!="") {
-            title = title+" - ";
+        if (title != "") {
+            title = title + " - ";
         }
 
-        return {"main":elm,"index":ielm,"title":title};
+        return { "main": elm, "index": ielm, "title": title };
     }
     escapeHTML(str) { // https://qiita.com/hrdaya/items/4beebbdb57009b405d2d
         return str
