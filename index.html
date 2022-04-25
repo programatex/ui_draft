@@ -48,41 +48,49 @@
     panelElement.addEventListener("click", openPanel);
 
     // page and article list
-    const updatePage = () => {
+    const updatePage = async () => {
         let article = location.hash.substring(1);
         if (article.length < 1) {
             location.hash = "home";
             return;
         }
 
-        const articledata = make.makehtml();
+        const articledata = await make.makehtml();
         document.getElementById("page").replaceWith(articledata.main);
         document.getElementById("index").replaceWith(articledata.index);
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
     };
 
-    const updateArticleList = () => {
-        let req = new XMLHttpRequest();
-        req.open("GET", "./articles.txt", false);
-        req.setRequestHeader('Cache-Control', 'Cache-Control: max-age=3600');
-        req.send();
-        artcs = req.responseText.replace(/\r/g, "").split("\n");
-        ulelm = document.createElement("ul");
+    const updateArticleList = async () => {
+        const res = await fetch("./articles.txt", {
+            method: "GET",
+            headers: {
+                'Catch-Control': "max-age=3600"
+            }
+        });
+        
+        const artcs = (await res.text()).replace(/\r/g, "").split("\n");
+
+        const ulelm = document.createElement("ul");
         ulelm.id = "articles";
         ulelm.className = "panellist";
+
         for (i = 0; i < artcs.length; i++) {
             if (!artcs[i].startsWith("//") && artcs[i].length > 0) {
-                lielm = document.createElement("li");
+                const lielm = document.createElement("li");
                 lielm.className = "panellist";
-                aelm = document.createElement("a");
+
+                const aelm = document.createElement("a");
                 aelm.className = "panellist";
                 aelm.innerHTML = artcs[i].split(",")[1];
                 aelm.href = "#" + artcs[i].split(",")[0];
+
                 lielm.appendChild(aelm);
                 ulelm.appendChild(lielm);
             }
         }
-        document.getElementById("articles").replaceWith(ulelm)
+
+        document.getElementById("articles").replaceWith(ulelm);
     };
 
     let make = new MAKE();
