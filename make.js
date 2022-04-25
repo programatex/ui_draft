@@ -41,7 +41,7 @@ class MAKE {
         let elm = document.createElement("div");
         let index = [];
         let id = 0;
-        elm.onclick = pageclick
+        elm.addEventListener("click", closePanel);
         elm.id = "page"
         let p = 0;
         while (p<d.length) { // main
