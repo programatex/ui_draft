@@ -9,7 +9,24 @@ h1{
     
     border-left: 5px solid;/* 左の線 */
     border-bottom: 6px solid;
-    border-image: linear-gradient(to right, #0e008f 0%, #ffffff 100%);
+    border-image: linear-gradient(to right, #0e008f 0%, #eafeff 90%, #fff 100%);
     border-image-slice: 1;
     color: #0e008f;/* フォント色 */
-    }
+}
+
+h2{
+    color: #00558d;
+    background-image: linear-gradient(to right, #edeaff 0%, #ffffff 100%);
+    border-left: 5px solid;/* 左の線 */
+    border-bottom: 6px solid;
+   border-image: linear-gradient(to right, #00558d 0%,#ffffff 100%);
+   border-image-slice: 1;
+   font-size: 1em;/* フォントサイズ */
+   font-weight: 200;
+   padding: 0.5em 0  0.5em 0.5em;
+   margin-left: 1.5em;
+}
+.textbox{
+    margin-left: 3em;
+
+}
