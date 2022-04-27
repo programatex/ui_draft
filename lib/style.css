@@ -28,5 +28,73 @@ h2{
 }
 .textbox{
     margin-left: 3em;
-
 }
+
+a{
+    display: none;
+}
+
+.download{
+    display: none;
+}
+
+
+.button05 a {
+    display: block;
+    position: absolute;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 2em;
+    color: #333;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #bce4ff;
+    box-shadow: 0 5px 0 #a0c2d8;
+    transition: 0.3s;
+}
+.button05 a{
+    
+    text-decoration: none;
+}
+.button05 a::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+}
+
+.button05 a:hover {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #a0c2d8;
+}
+
+
+
+
+
+.button06 a {
+    position: absolute;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 2em;
+    color: #333;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #00ff00;
+    box-shadow: 0 5px 0 #00bd00;
+    transition: 0.3s;
+}
+.button06 a{
+    
+    text-decoration: none;
+}
+.button06 a::after {
+content: '';
+    width: 5px;
+    height: 5px;
+}
+
+.button06 a:hover {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #006400;
+}
+
