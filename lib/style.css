@@ -19,82 +19,34 @@ h2{
     background-image: linear-gradient(to right, #edeaff 0%, #ffffff 100%);
     border-left: 5px solid;/* 左の線 */
     border-bottom: 6px solid;
-   border-image: linear-gradient(to right, #00558d 0%,#ffffff 100%);
-   border-image-slice: 1;
-   font-size: 1em;/* フォントサイズ */
-   font-weight: 200;
-   padding: 0.5em 0  0.5em 0.5em;
-   margin-left: 1.5em;
+    border-image: linear-gradient(to right, #00558d 0%,#ffffff 100%);
+    border-image-slice: 1;
+    font-size: 1em;/* フォントサイズ */
+    font-weight: 200;
+    padding: 0.5em 0  0.5em 0.5em;
+    margin-left: 1.5em;
 }
 .textbox{
     margin-left: 3em;
 }
 
-a{
-    display: none;
-}
-
-.download{
-    display: none;
-}
-
-
-.button05 a {
-    display: block;
-    position: absolute;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em 2em;
-    color: #333;
-    font-size: 18px;
-    font-weight: 700;
-    background-color: #bce4ff;
-    box-shadow: 0 5px 0 #a0c2d8;
-    transition: 0.3s;
-}
-.button05 a{
-    
-    text-decoration: none;
-}
-.button05 a::after {
-    content: '';
-    width: 5px;
-    height: 5px;
-}
-
-.button05 a:hover {
-    transform: translateY(3px);
-    box-shadow: 0 2px 0 #a0c2d8;
-}
-
-
-
-
-
 .button06 a {
     position: absolute;
     justify-content: space-between;
     align-items: center;
-    padding: 1em 2em;
+    padding: 10px;
     color: #333;
     font-size: 18px;
-    font-weight: 700;
     background-color: #00ff00;
-    box-shadow: 0 5px 0 #00bd00;
-    transition: 0.3s;
-}
-.button06 a{
-    
+    box-shadow: 2px 2px 2px 0px #00ad00;
+    transition: 0.1s;
     text-decoration: none;
 }
-.button06 a::after {
-content: '';
-    width: 5px;
-    height: 5px;
-}
-
 .button06 a:hover {
-    transform: translateY(3px);
-    box-shadow: 0 2px 0 #006400;
+    transform: translateY(2px);
+    box-shadow: 1px 1px 1px 0px #006400;
 }
 
+.dlarea {
+    margin: 40px;
+}
