@@ -12,4 +12,5 @@ quadraticequation,二次方程式,1
 quadraticequation_discriminant,二次方程式 - 判別式,1
 
 reference/articlefile,記事のファイル形式について,1
+reference/standard,記事の標準の書式について,1
 schedule/articles,記事の予定,2
