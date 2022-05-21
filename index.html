@@ -31,12 +31,12 @@
         <button class="overlay" onclick="share();openshare()">共有</button>
     </div>
 
-    <div class="popuparea" id="popuparea">
+    <div id="popuparea" style="visibility: hidden;">
         <div class="popup">
             <button class="popup close" onclick="closeshare()">×</button>
             <h1 class="popup" id="closepopup">共有</h1>
             <p class="popup" style="display: inline">URL:</p>
-            <input value="https://example">
+            <input value="https://example" id="shareurl">
         </div>
     </div>
 
@@ -58,7 +58,8 @@
     }
 
     function share() {
-        location.origin + location.pathname + location.hash
+        let shareurl = location.origin + location.pathname + "?" + location.hash.substring(1)
+        document.getElementById("shareurl").value = shareurl
     }
 
     // panel
@@ -337,8 +338,10 @@
         margin: auto;
         background: whitesmoke;
         padding: 20px;
-        width: 200px;
-        height: 100px;
+        width: 50%;
+        min-width: 300px;
+        max-width: 500px;
+        height: 70px;
     }
     p.popup,h1.popup {
         font-size: 15px;
@@ -353,13 +356,24 @@
         display: block;
         font-size: 10px;
         line-height: 5px;
-        padding: 5px;
-        background-color: aquamarine;
+        padding: 7px;
+        background: rgba(255, 255, 255, 0.3);
+        border: 1px solid rgb(174, 174, 174);
+        border-radius: 3px;
         margin: -15px -15px -10px auto;
     }
-    div.popuparea {
+    button.popup.close:hover {
+        background: rgba(51, 51, 51, 0.3);
+    }
+    button.popup.close:active {
+        border: 1px solid rgb(52, 52, 52);
+    }
+    div#popuparea {
         width: calc(100vw - 20px);
         height: calc(100vh - 20px);
+    }
+    #shareurl {
+        width: 100%;
     }
 
 
