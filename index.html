@@ -58,7 +58,7 @@
     }
 
     function share() {
-        let shareurl = location.origin + location.pathname + "?" + location.hash.substring(1)
+        let shareurl = location.origin + location.pathname + "?article=" + location.hash.substring(1)
         document.getElementById("shareurl").value = shareurl
     }
 
@@ -140,9 +140,16 @@
     };
 
     window.onload = function() {
-        let article = location.search.substring(1);
-        if (article.length > 1) {
-            location.hash = article;
+        let search = location.search.substring(1);
+        params = {}
+        let param = search.split("&")
+        for (let i=0;i<param.length;i++) {
+            let ap = param[i].split("=")
+            params[ap[0]] = ap[1]
+        }
+        if (params["article"]!=null) {
+            console.log(params["article"])
+            location.hash = params["article"];
             location.search = "";
         }
     }
