@@ -9,7 +9,6 @@
 <body>
     <div id="page">
     </div>
-
     <div id="panel">
         <a id="logo" href="#home">数学が苦手な<br>プログラマのための<br>教科書</a>
 
@@ -27,7 +26,18 @@
             <p class="panelindex">目次</p>
             <ul id="index" class="panellist"></ul>
         </div>
+    </div>
+    <div class="overlay">
+        <button class="overlay" onclick="share();openshare()">共有</button>
+    </div>
 
+    <div class="popuparea" id="popuparea">
+        <div class="popup">
+            <button class="popup close" onclick="closeshare()">×</button>
+            <h1 class="popup" id="closepopup">共有</h1>
+            <p class="popup" style="display: inline">URL:</p>
+            <input value="https://example">
+        </div>
     </div>
 
 </body>
@@ -35,6 +45,21 @@
 </html>
 <script src="make.js"></script>
 <script>
+
+    function closeshare() {
+        a = document.getElementById("popuparea")
+        a.style.visibility = "hidden"
+        console.log(a)
+    }
+    function openshare() {
+        a = document.getElementById("popuparea")
+        a.style.visibility = "visible"
+        console.log(a)
+    }
+
+    function share() {
+        location.origin + location.pathname + location.hash
+    }
 
     // panel
     const panelElement = document.getElementById("panel");
@@ -108,10 +133,18 @@
         updatePage();
     }, false);
 
-    const jumpTo = (id) => {
+    const jump = (id) => {
         const targ = document.getElementById(id).getBoundingClientRect();
         window.scrollTo({ top: targ.top - 20, behavior: "smooth" });
     };
+
+    window.onload = function() {
+        let article = location.search.substring(1);
+        if (article.length > 1) {
+            location.hash = article;
+            location.search = "";
+        }
+    }
 </script>
 <style>
     body {
@@ -177,7 +210,6 @@
     div.page {
         background: wheat;
         margin: 10px;
-        margin-left: 20px;
     }
 
     h1.pagetitle {
@@ -208,8 +240,8 @@
 
     div#page {
         margin-left: 200px;
+        width: calc(100% - 230px);
     }
-
     div#panel {
         position: fixed;
         background: whitesmoke;
@@ -274,9 +306,67 @@
         background: lightsteelblue;
     }
 
+    div.overlay {
+        position: fixed;
+        bottom: 10%;
+        right: 0;
+    }
+    button.overlay {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px 0px 0px 10px;
+        border: 1px solid rgb(174, 174, 174);
+        font-size: 12px;
+        padding: 0px;
+        width: 35px;
+        height: 30px;
+    }
+    button.overlay:hover {
+        background: rgba(51, 51, 51, 0.3);
+    }
+    button.overlay:active {
+        border: 1px solid rgb(52, 52, 52);
+    }
+
+    div.popup {
+        position: fixed;
+        display: block;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: whitesmoke;
+        padding: 20px;
+        width: 200px;
+        height: 100px;
+    }
+    p.popup,h1.popup {
+        font-size: 15px;
+        padding: 0px;
+        margin: 0px;
+    }
+    h1.popup {
+        font-size: 20px;
+    }
+    button.popup.close {
+        width: fit-content;
+        display: block;
+        font-size: 10px;
+        line-height: 5px;
+        padding: 5px;
+        background-color: aquamarine;
+        margin: -15px -15px -10px auto;
+    }
+    div.popuparea {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+    }
+
+
     @media (max-width: 640px) {
         div#page {
             margin-left: 20px;
+            width: calc(100% - 30px);
         }
 
         #panel {
