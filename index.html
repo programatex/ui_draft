@@ -157,7 +157,10 @@
 <style>
     body {
         background: honeydew;
-        margin: 30px;
+        margin: 0px;
+        height: 100vh;
+        overflow-y: hidden;
+        overflow-x: hidden;
     }
 
     pre {
@@ -217,7 +220,7 @@
 
     div.page {
         background: wheat;
-        margin: 10px;
+        margin: 0px;
     }
 
     h1.pagetitle {
@@ -226,18 +229,19 @@
         font-size: 35px;
         padding: 20px;
         margin: 0px;
-        margin-top: 30px;
+        margin-top: 0px;
         margin-bottom: 40px;
     }
 
     div.writtingpage {
         background: navajowhite;
-        font-size: 12px;
+        font-size: 11.5px;
         position: relative;
-        border-radius: 10px 0px 10px 0px;
+        border-radius: 10px 0px 7px 0px;
         margin: 0px;
-        margin-bottom: -54px;
-        padding: 2px 10px 2px 5px;
+        margin-bottom: -21px;
+        padding: 2px 20px 2px 5px;
+        height: 17px;
         width: fit-content;
     }
 
@@ -247,8 +251,12 @@
     }
 
     div#page {
+        padding: 30px;
         margin-left: 200px;
-        width: calc(100% - 230px);
+        padding-right: 60px;
+        width: calc(100% - 290px);
+        height: calc(100vh - 50px);
+        overflow-y: auto;
     }
     div#panel {
         position: fixed;
@@ -320,16 +328,17 @@
         right: 0;
     }
     button.overlay {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255);
         border-radius: 10px 0px 0px 10px;
         border: 1px solid rgb(174, 174, 174);
         font-size: 12px;
-        padding: 0px;
-        width: 35px;
-        height: 30px;
+        padding: 5px;
+        text-align: left;
+        width: 50px;
+        height: 50px;
     }
     button.overlay:hover {
-        background: rgba(51, 51, 51, 0.3);
+        background: rgb(168, 168, 168);
     }
     button.overlay:active {
         border: 1px solid rgb(52, 52, 52);
@@ -338,10 +347,7 @@
     div.popup {
         position: fixed;
         display: block;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        top: 0;right: 0;bottom: 0;left: 0;
         margin: auto;
         background: whitesmoke;
         padding: 20px;
@@ -349,6 +355,9 @@
         min-width: 300px;
         max-width: 500px;
         height: 70px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px black;
     }
     p.popup,h1.popup {
         font-size: 15px;
@@ -364,13 +373,13 @@
         font-size: 10px;
         line-height: 5px;
         padding: 7px;
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255);
         border: 1px solid rgb(174, 174, 174);
         border-radius: 3px;
         margin: -15px -15px -10px auto;
     }
     button.popup.close:hover {
-        background: rgba(51, 51, 51, 0.3);
+        background: rgb(168, 168, 168);
     }
     button.popup.close:active {
         border: 1px solid rgb(52, 52, 52);
@@ -386,12 +395,15 @@
 
     @media (max-width: 640px) {
         div#page {
+            padding: 30px;
+            padding-right: 60px;
             margin-left: 20px;
-            width: calc(100% - 30px);
+            width: calc(100% - 110px);
+            height: calc(100vh - 50px);
         }
 
         #panel {
-            box-shadow: 0 0 10px 0 darkslategrey;
+            box-shadow: 0 0 5px 0 darkslategrey;
             transform: translateX(-180px);
         }
 
