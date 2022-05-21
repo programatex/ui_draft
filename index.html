@@ -253,8 +253,8 @@
     div#page {
         padding: 30px;
         margin-left: 200px;
-        padding-right: 50px;
-        width: calc(100% - 280px);
+        padding-right: 60px;
+        width: calc(100% - 290px);
         height: calc(100vh - 50px);
         overflow-y: auto;
     }
@@ -347,10 +347,7 @@
     div.popup {
         position: fixed;
         display: block;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        top: 0;right: 0;bottom: 0;left: 0;
         margin: auto;
         background: whitesmoke;
         padding: 20px;
@@ -358,6 +355,9 @@
         min-width: 300px;
         max-width: 500px;
         height: 70px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px black;
     }
     p.popup,h1.popup {
         font-size: 15px;
@@ -396,14 +396,14 @@
     @media (max-width: 640px) {
         div#page {
             padding: 30px;
-            padding-right: 50px;
+            padding-right: 60px;
             margin-left: 20px;
-            width: calc(100% - 100px);
+            width: calc(100% - 110px);
             height: calc(100vh - 50px);
         }
 
         #panel {
-            box-shadow: 0 0 10px 0 darkslategrey;
+            box-shadow: 0 0 5px 0 darkslategrey;
             transform: translateX(-180px);
         }
 
