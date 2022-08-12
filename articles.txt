@@ -13,7 +13,6 @@ quadraticequation,二次方程式,1
 quadraticequation_discriminant,二次方程式 - 判別式,1
 circle-radius_diameter,円の半径と直径,1
 primefactorization,素因数分解,1
-
 reference/articlefile,記事のファイル形式について,1
 reference/standard,記事の標準の書式について,1
 schedule/articles,記事の予定,2
