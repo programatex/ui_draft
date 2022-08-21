@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>nl</title>
         <meta charset="utf-8">
-        <link href="style.css" rel="stylesheet">
+        <link href="js.css" rel="stylesheet">
     </head>
     <body>
         <div>
@@ -20,8 +19,6 @@ function tokenaize(c) {
         let p = 0;
         let searchtype = [
             ["RETURN","return"],
-            ["IF","if"],
-            ["ELSE","else"],
             ["BOOL","true"],
             ["BOOL","false"],
             ["CONST","const"],
@@ -61,6 +58,14 @@ function tokenaize(c) {
                 }
                 token.push(["FUNCTIONNAME",c.slice(scomment,p)])
                 continue;
+            }
+            else if (c[p]=="i"&&c[p+1]=="f"&&(c[p+2]==" "||c[p+2]=="(")) {
+                token.push(["IF","if"]);
+                p+=2
+            }
+            else if (c[p]=="e"&&c[p+1]=="l"&&c[p+2]=="s"&&c[p+3]=="e"&&(c[p+4]==" "||c[p+4]=="(")) {
+                token.push(["ELSE","else"]);
+                p+=4
             }
             if (c[p]==" ") {
                 let scomment = p
