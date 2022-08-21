@@ -7,8 +7,8 @@
     <body>
         <div>
             <div id="linearea"></div>
-            <pre class="codearea" id="codearea" contenteditable="true" spellcheck="false" autocomplete="off"><br></pre>
             <div class="codearea" id="highlight" spellcheck="false"></div>
+            <div id="lang">js</div>
         </div>
     </body>
 </html>
@@ -214,7 +214,8 @@ function tokenaize(c) {
         return token;
     }
 function highlight() {
-    tokens = tokenaize(codeelm.innerText)
+    let params = new URLSearchParams(location.href.split("?")[1])
+    tokens = tokenaize(atob(params.get("code")))
     outelm.innerHTML = "";
     linearea.innerHTML = "";
         let brcnt = 0
@@ -273,17 +274,6 @@ function highlight() {
     }
 }
 outelm = document.getElementById("highlight")
-codeelm = document.getElementById("codearea")
-linearea = document.getElementById("linearea")
-codeelm.onkeyup = highlight
-codeelm.onkeydown = highlight
-
-codeelm.addEventListener("paste", function(e) { // 参考: https://qiita.com/tashinoso/items/5519a5fa56e7585d8a93
-    e.preventDefault();
-    var text = e.clipboardData.getData("text/plain")+"<br>";
-    document.execCommand("insertHTML", false, text);
-});
-
 highlight()
 
 </script>
@@ -298,18 +288,28 @@ highlight()
         margin: 0px;
         display: inline;
     }
+    #lang {
+        position: absolute;
+        color: white;
+        font-size: 15px;
+        background: gray;
+        padding: 10px;
+        border-radius: 10px 0px 10px 0px;
+        margin: 0;
+        top: -4px;
+        padding: 2px 15px 2px 15px;
+        width: fit-content;
+    }
     .codearea {
         width: min-content;
-        min-height: calc(100vh - 40px);
-        min-width: calc(100vw - 100px);
+        z-index: 10;
+        min-height: calc(100vh - 50px);
+        min-width: calc(100vw - 80px);
         margin: 0px;
         padding: 20px;
-        padding-left: 80px;
+        padding-top: 30px;
+        padding-left: 40px;
         border-radius: 10px;
-        top: 10px;
-        position: absolute;
-        top: 0px;
-        left: 0px;
         font-size: 15px;
         background: rgb(0,0,0,0);
         color: rgb(255, 255, 255);
@@ -319,14 +319,14 @@ highlight()
     }
     body {
         background-color: rgb(34, 57, 57);
+        margin: 0;
     }
-
     #linearea {
         padding-left: 5px;
-        width: 55px;
+        width: 15px;
         margin: 0px;
         padding: 0px;
-        padding-top: 20px;
+        padding-top: 30px;
         padding-bottom: 20px;
         padding-right: 10px;
         position: absolute;

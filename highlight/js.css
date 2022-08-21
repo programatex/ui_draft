@@ -1,0 +1,58 @@
+#highlight {
+    color: rgb(245, 241, 236);
+    pointer-events: none;
+}
+.BCOMMENT { /* ブロックコメント */
+    color:rgb(133 179 39);
+}
+.LCOMMENT { /* ブロックコメント */
+    color:rgb(145, 164, 139);
+}
+.BLANKBC { /* コメント 空白 */
+    text-decoration: line-through rgba(133, 179, 39, 0.2);
+}
+.BLANK { /* 空白 */
+    text-decoration: underline rgba(255, 255, 255, 0.2);
+}
+.FUNCTION {
+    color: rgb(83, 178, 255);
+}
+.LET,.VAR,.NEW {
+    color: rgb(83, 178, 255);
+}
+.CONST {
+    color: rgb(83, 112, 255);
+}
+.VARIABLE {
+    color: rgb(179, 255, 255);
+}
+.DIGITS {
+    color: rgb(127, 255, 187);
+}
+.RETURN {
+    color:rgb(255 59 0);
+}
+.EXCLAIM {
+    color: rgb(222 101 132);
+}
+.LPAREN,.RPAREN {
+    color: rgb(255, 157, 230);
+}
+.LBRACE,.RBRACE {
+    color: rgb(232, 255, 103);
+}
+.LBRACKET,.RBRACKET {
+    color: rgb(255, 232, 103);
+}
+.BOOL {
+    color: rgb(255 235 46);
+}
+.FOR,.IF,.ELSE {
+    color: rgb(255, 91, 230);
+}
+.STRING {
+    color: rgb(253, 152, 29);
+}
+.FUNCTIONNAME {
+    color: rgb(255, 245, 169);
+}
