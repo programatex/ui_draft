@@ -4,6 +4,7 @@
 <head>
     <title></title>
     <meta charset="utf-8">
+    <link href="./highlight/js.css" rel="stylesheet">
 </head>
 
 <body>
@@ -44,6 +45,7 @@
 
 </html>
 <script src="make.js"></script>
+<script src="./highlight/js.js"></script>
 <script>
 
     function closeshare() {
@@ -180,9 +182,9 @@
     }
 
     pre.page {
-        background: darkslategray;
+        background-color: rgb(34, 57, 57);
         color: white;
-        padding: 10px;
+        padding: 30px;
         margin: 10px;
         margin-left: 20px;
         border-radius: 10px;
@@ -194,6 +196,8 @@
 
     code.page {
         display: inline-block;
+        margin: 0px;
+        padding: 0px;
     }
 
     h1.page {
@@ -223,8 +227,9 @@
         padding: 10px;
         border-radius: 10px 0px 10px 0px;
         margin: 0;
-        margin-top: -15px;
-        margin-left: -10px;
+        margin-top: -30px;
+        margin-left: -30px;
+        margin-bottom: 10px;
         padding: 2px 15px 2px 15px;
         width: fit-content;
     }
@@ -428,5 +433,36 @@
             transform: translateX(0);
         }
 
+    }
+</style>
+<style>
+    pre.js {
+        margin: 0px;
+        display: inline;
+    }
+    .highlightbody {
+        color: rgb(235, 235, 235);
+        background-color: rgb(34, 57, 57);
+        padding: 30px;
+        margin: 10px;
+        margin-left: 20px;
+        border-radius: 10px;
+        width: 70%;
+        max-height: 500px;
+        resize: none;
+        overflow: auto;
+    }
+    .langtag {
+        font-size: 15px;
+        position: relative;
+        background: gray;
+        padding: 10px;
+        border-radius: 10px 0px 10px 0px;
+        margin: 0;
+        margin-top: -30px;
+        margin-left: -30px;
+        margin-bottom: 10px;
+        padding: 2px 15px 2px 15px;
+        width: fit-content;
     }
 </style>

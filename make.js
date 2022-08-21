@@ -101,7 +101,6 @@ class MAKE {
                     }
                     if (d[p].startsWith("```")) {
                         let preelm = document.createElement("pre");
-                        let iframeelm = document.createElement("iframe")
                         preelm.className = "page";
                         let langname = ""
                         if (d[p].length > 3) {
@@ -126,9 +125,7 @@ class MAKE {
                         }
 
                         if (langname=="js") {
-                            iframeelm.className = "iframecode";
-                            iframeelm.src = "./highlight/js.html?code="+btoa(codeelm.innerText)
-                            part.appendChild(iframeelm);
+                            part.appendChild(jshighlight(codeelm.innerText));
                         }
                         else {
                             preelm.appendChild(codeelm);
