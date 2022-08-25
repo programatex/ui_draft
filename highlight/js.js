@@ -31,7 +31,6 @@ function jstokenaize(c) {
     ]
     let token = []
     while (p<c.length) {
-        console.log(c.slice(p,8))
         if (c[p]=="f"&&c[p+1]=="u"&&c[p+2]=="n"&&c[p+3]=="c"&&c[p+4]=="t"&&c[p+5]=="i"&&c[p+6]=="o"&&c[p+7]=="n"&&c[p+8]==" ") {
             token.push(["FUNCTION","function"]);
             token.push(["BLANK"," "])

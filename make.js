@@ -173,7 +173,7 @@ class MAKE {
             title = title + " - ";
         }
 
-        return { "main": elm, "index": ielm, "title": title };
+        return { "main": elm, "index": ielm, "title": title , "data": data};
     }
     escapeHTML(str) { // https://qiita.com/hrdaya/items/4beebbdb57009b405d2d
         return str

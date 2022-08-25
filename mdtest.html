@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta property="og:title" content="数学が苦手なプログラマのための教科書" id='ogtitle'>
+    <meta property="og:description" content="数学の計算(n次方程式、累乗など)をJavaSriptやC#などの言語で実装する方法を紹介します" id="ogdescription">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="">
+    <title></title>
+    <meta charset="utf-8">
+    <link href="./highlight/js.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <div id="page">
+    </div>
+    <div id="panel">
+        <a id="logo" href="#home">数学が苦手な<br>プログラマのための<br>教科書</a>
+
+        <div class="panellist">
+            <p class="panelindex">ツール</p>
+            <ul id="tool" class="panellist">
+                <li class="panellist"><a class="panellist" href="./lib/">ライブラリ</a></li>
+            </ul>
+        </div>
+        <div class="panellist">
+            <p class="panelindex">記事</p>
+            <ul id="articles" class="panellist"></ul>
+        </div>
+        <div class="panellist">
+            <p class="panelindex">目次</p>
+            <ul id="index" class="panellist"></ul>
+        </div>
+    </div>
+    <div class="overlay">
+        <button class="overlay" onclick="share();openshare()">共有</button>
+    </div>
+
+    <div id="popuparea" style="visibility: hidden;">
+        <div class="popup">
+            <button class="popup close" onclick="closeshare()">×</button>
+            <h1 class="popup" id="closepopup">共有</h1>
+            <p class="popup" style="display: inline">URL:</p>
+            <input value="https://example" id="shareurl">
+            <a href="twitter.com" id="twitter" target="_blank" rel="noopener noreferrer">ついった</a>
+        </div>
+    </div>
+
+</body>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+          skipTags: ["script","noscript","style","textarea","pre","code","kbd"]
+      }
+    });
+</script>
+
+</html>
+<script src="./make.js"></script>
+<script src="./highlight/js.js"></script>
+<script src="./rep.js"></script>
+<script>
+    function closeshare() {
+        a = document.getElementById("popuparea");
+        a.style.visibility = "hidden";
+    }
+    function openshare() {
+        a = document.getElementById("popuparea");
+        a.style.visibility = "visible";
+    }
+
+    function share() {
+        let shareurl = location.origin + location.pathname + "?article=" + location.hash.substring(1);
+        document.getElementById("shareurl").value = shareurl;
+        
+        document.getElementById("twitter").href =  'https://twitter.com/intent/tweet?text='  + document.title + ' - ' + shareurl;
+    }
+
+    // panel
+    const panelElement = document.getElementById("panel");
+
+    const openPanel = () => {
+        panelElement.classList.add("panelopen");
+    };
+
+    const closePanel = () => {
+        panelElement.classList.remove("panelopen");
+    };
+
+    const togglePanel = () => {
+        panelElement.classList.toggle("panelopen");
+    };
+
+    panelElement.addEventListener("click", openPanel);
+
+    // page and article list
+    const updatePage = async () => {
+        let article = location.hash.substring(1);
+        if (article.length < 1) {
+            location.hash = "home";
+            return;
+        }
+
+        const articledata = await make.makehtml();
+
+        let tpage = document.createElement("div");
+        tpage.id = "page"; // ページ作成
+        tpage.innerHTML = marked.parse(articledata.data); // パースして入れる
+        document.getElementById("page").replaceWith(tpage); // ページ置き換え
+        rep();
+        document.getElementById("index").replaceWith(articledata.index);
+        document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
+        // MathJax.Hub.Typeset(); // 数式ライブラリ
+    };
+
+    const updateArticleList = async () => {
+        const res = await fetch("./articles.txt", {
+            method: "GET",
+            headers: {'Catch-Control': "max-age=3600" }
+        });
+        
+        const artcs = (await res.text()).replace(/\r/g, "").split("\n");
+
+        const ulelm = document.createElement("ul");
+        ulelm.id = "articles";
+        ulelm.className = "panellist";
+
+        for (i = 0; i < artcs.length; i++) {
+            if (!artcs[i].startsWith("//") && artcs[i].length > 0) {
+                const lielm = document.createElement("li");
+                lielm.className = "panellist";
+
+                const aelm = document.createElement("a");
+                aelm.className = "panellist";
+                aelm.innerHTML = artcs[i].split(",")[1];
+                aelm.href = "#" + artcs[i].split(",")[0];
+
+                lielm.appendChild(aelm);
+                ulelm.appendChild(lielm);
+            }
+        }
+
+        document.getElementById("articles").replaceWith(ulelm);
+    };
+
+    let make = new MAKE();
+    updatePage();
+    updateArticleList();
+
+    window.addEventListener("hashchange", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        updatePage();
+    }, false);
+
+    const jump = (id) => {
+        const targ = document.getElementById(id).getBoundingClientRect();
+        window.scrollTo({ top: targ.top - 20, behavior: "smooth" });
+    };
+
+    window.onload = function() {
+        let search = location.search.substring(1);
+        params = {}
+        let param = search.split("&")
+        for (let i=0;i<param.length;i++) {
+            let ap = param[i].split("=")
+            params[ap[0]] = ap[1]
+        }
+        if (params["article"]!=null) {
+            location.hash = params["article"];
+            location.search = "";
+        }
+    }
+</script>
+<style>
+    body {
+        background: honeydew;
+        margin: 0px;
+        height: 100vh;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    iframe.iframecode {
+        border: none;
+
+        color: white;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 20px;
+        max-height: 500px;
+        height: fit-content;
+        resize: none;
+        overflow: auto;
+        display: inline-block;
+    }
+
+
+    pre.page {
+        background-color: rgb(34, 57, 57);
+        color: white;
+        padding: 30px;
+        margin: 10px;
+        border-radius: 10px;
+        max-height: 500px;
+        resize: none;
+        overflow: auto;
+    }
+
+    code.page {
+        display: inline-block;
+        margin: 0px;
+        margin-right: 30px;
+        padding: 0px;
+    }
+
+    h1.page {
+        background: palegreen;
+    }
+
+    div.panellist {
+        margin: 10px;
+    }
+
+    p.page {
+        margin: 2px;
+        margin-left: 10px;
+        padding: 5px;
+    }
+
+    .page {
+        padding: 10px;
+        padding-top: 15px;
+        border-radius: 10px;
+    }
+
+    p.lang {
+        font-size: 15px;
+        position: relative;
+        background: gray;
+        padding: 10px;
+        border-radius: 10px 0px 10px 0px;
+        margin: 0;
+        margin-top: -30px;
+        margin-left: -30px;
+        margin-bottom: 10px;
+        padding: 2px 15px 2px 15px;
+        width: fit-content;
+    }
+
+    h2.page {
+        background: aquamarine;
+        margin-left: 10px;
+    }
+
+    div.page {
+        background: wheat;
+        margin: 0px;
+    }
+
+    h1.pagetitle {
+        text-align: center;
+        background: chartreuse;
+        font-size: 35px;
+        padding: 20px;
+        margin: 0px;
+        margin-top: 0px;
+        margin-bottom: 40px;
+    }
+
+    div.writtingpage {
+        background: navajowhite;
+        font-size: 11.5px;
+        position: relative;
+        border-radius: 10px 0px 7px 0px;
+        margin: 0px;
+        margin-bottom: -21px;
+        padding: 2px 20px 2px 5px;
+        height: 17px;
+        width: fit-content;
+    }
+
+    p.writtingpage {
+        margin: 1px;
+        padding: 0px;
+    }
+
+    div#page {
+        padding: 30px;
+        margin-left: 200px;
+        padding-right: 60px;
+        width: calc(100% - 290px);
+        height: calc(100vh - 50px);
+        overflow-y: auto;
+    }
+    div#panel {
+        position: fixed;
+        background: whitesmoke;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        left: 0;
+        border: 0px;
+        border-right: 1px gray solid;
+    }
+
+    #logo {
+        border-radius: 3px;
+        font-size: 15px;
+        margin: 5px;
+        padding: 5px;
+        background: lightyellow;
+        display: block;
+        color: firebrick;
+        text-decoration: none;
+        height: 70px;
+        border: 1px yellowgreen solid;
+    }
+
+    #logo:hover {
+        background: lightgoldenrodyellow;
+    }
+
+    p.panelindex {
+        margin: 0px;
+    }
+
+    ul.panellist {
+        padding: 0;
+        margin: 0;
+        margin-left: 5px;
+        list-style: none;
+    }
+
+    li.panellist {
+        font-size: 12px;
+        margin: 7px;
+    }
+
+    button.panellist,
+    a.panellist {
+        border-radius: 3px;
+        display: inline-block;
+        font-size: 12px;
+        background: white;
+        border: none;
+        text-align: left;
+        text-decoration: none;
+        color: black;
+        border: 1px gray solid;
+        margin: 0px;
+        padding: 3px;
+    }
+
+    button.panellist:hover,
+    a.panellist:hover {
+        background: lightsteelblue;
+    }
+
+    div.overlay {
+        position: fixed;
+        bottom: 10%;
+        right: 0;
+    }
+    button.overlay {
+        background: rgba(255, 255, 255);
+        border-radius: 10px 0px 0px 10px;
+        border: 1px solid rgb(174, 174, 174);
+        font-size: 12px;
+        padding: 5px;
+        text-align: left;
+        width: 50px;
+        height: 50px;
+    }
+    button.overlay:hover {
+        background: rgb(168, 168, 168);
+    }
+    button.overlay:active {
+        border: 1px solid rgb(52, 52, 52);
+    }
+
+    div.popup {
+        position: fixed;
+        display: block;
+        top: 0;right: 0;bottom: 0;left: 0;
+        margin: auto;
+        background: whitesmoke;
+        padding: 20px;
+        width: 50%;
+        min-width: 300px;
+        max-width: 500px;
+        height: 100px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px black;
+    }
+    p.popup,h1.popup {
+        font-size: 15px;
+        padding: 0px;
+        margin: 0px;
+    }
+    h1.popup {
+        font-size: 20px;
+    }
+    button.popup.close {
+        width: fit-content;
+        display: block;
+        font-size: 10px;
+        line-height: 5px;
+        padding: 7px;
+        background: rgba(255, 255, 255);
+        border: 1px solid rgb(174, 174, 174);
+        border-radius: 3px;
+        margin: -15px -15px -10px auto;
+    }
+    button.popup.close:hover {
+        background: rgb(168, 168, 168);
+    }
+    button.popup.close:active {
+        border: 1px solid rgb(52, 52, 52);
+    }
+    div#popuparea {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+    }
+    #shareurl {
+        width: 100%;
+    }
+
+
+</style>
+<style>
+    pre.js {
+        margin: 0px;
+        display: inline;
+    }
+    .highlightbody {
+        color: rgb(235, 235, 235);
+        background-color: rgb(34, 57, 57);
+        padding: 30px;
+        margin: 10px;
+        border-radius: 10px;
+        max-height: 500px;
+        resize: none;
+        overflow: auto;
+    }
+    .langtag {
+        font-size: 15px;
+        position: relative;
+        background: gray;
+        padding: 10px;
+        border-radius: 10px 0px 10px 0px;
+        margin: 0;
+        margin-top: -30px;
+        margin-left: -30px;
+        margin-bottom: 10px;
+        padding: 2px 15px 2px 15px;
+        width: fit-content;
+    }
+    .codearea {
+        display: inline-block;
+        margin: 0px;
+        margin-right: 30px;
+        padding: 0px;
+    }
+</style>
+<style>
+    .mjx-math.mathml {
+        background-color: rgb(34, 57, 57);
+        color: rgb(235, 235, 235);
+        padding: 30px;
+        margin: 10px;
+        margin-left: 10px;
+        border-radius: 10px;
+        max-height: 500px;
+        overflow: auto;
+        display: inline-block;
+    }
+    .mjx-math.mathml > .mjx-mrow {
+        margin-right: 30px;
+    }
+
+    .mjx-chtml.MJXc-display {
+        background-color: rgb(34, 57, 57);
+        color: rgb(235, 235, 235);
+        padding: 30px;
+        margin: 10px;
+        margin-left: -5px;
+        margin-right: 100px;
+        border-radius: 10px;
+        max-height: 500px;
+        overflow: auto;
+        display: inline-block;
+        text-align: left !important;
+    }
+    .mjx-chtml.MJXc-display > .mjx-chtml.MathJax_CHTML {
+        margin-right: 30px;
+    }
+</style>
+<style>
+
+    iframe.iframecode,pre.page,.highlightbody,.mathml,.mjx-chtml.MJXc-display { /* コードブロック */
+        width: calc(70vw - 200px);
+    }
+
+    @media (max-width: 640px) {
+
+        iframe.iframecode,pre.page,.highlightbody,.mathml,.mjx-chtml.MJXc-display { /* コードブロック */
+            width: calc(100vw - 220px);
+            margin-right: 30px;
+        }
+
+        div#page {
+            padding: 30px;
+            padding-right: 60px;
+            margin-left: 20px;
+            width: calc(100% - 110px);
+            height: calc(100vh - 50px);
+        }
+
+        #panel {
+            box-shadow: 0 0 5px 0 darkslategrey;
+            transform: translateX(-180px);
+        }
+
+        #panel.panelopen {
+            box-shadow: 0 0 50px 0 darkslategrey;
+            transform: translateX(0);
+        }
+
+    }
+</style>

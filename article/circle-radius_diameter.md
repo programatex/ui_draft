@@ -20,6 +20,8 @@
 function radius_to_diameter(r) { // 半径から直径
     return r*2;
 }
+```
+```js
 function diameter_to_radius(r) { // 直径から半径
     return r/2;
 }
