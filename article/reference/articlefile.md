@@ -9,9 +9,6 @@
 ```md
 # タイトル
 ```
-```html
-<h1>タイトル</h1>
-```
 
 ## 大見出し
 
@@ -21,9 +18,6 @@
 ```md
 # 大見出し
 ```
-```html
-<h1>大見出し</h1>
-```
 
 ## 見出し
 
@@ -32,35 +26,27 @@
 ```md
 ## 見出し
 ```
-```html
-<h2>見出し</h2>
-```
 
 ## コードブロック
 
 コードを表示できます  
 
-```md
-&esc;```
-function code() {
-    return "code";
-}
-&esc;```
+### text  
+````md
+```txt
+Hello World!
 ```
-```html
-<pre><code>function code() {
-    return "code";
-}</code></pre>
+````
+```txt
+Hello World!
 ```
-```md
-&esc;```js
-function code() {
-    return "code";
-}
-&esc;```
+
+### javascript  
+````md
+```js
+Console.log("Hello World!");
 ```
-```html
-<pre><p>js</p><code>function code() {
-    return "code";
-}</code></pre>
+````
+```js
+Console.log("Hello World!");
 ```
