@@ -7,9 +7,9 @@
     <link href="./highlight/js.css" rel="stylesheet">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="" id="ogtitle">
+    <meta property="og:title" content="数学が苦手なプログラマのための教科書">
     <meta property="og:description" content="数学が苦手なプログラマのための教科書">
-    <meta property="og:site_name" content="数学が苦手なプログラマのための教科書">
+    <meta property="og:site_name" content="">
 </head>
 
 <body>
@@ -97,7 +97,6 @@
         const articledata = await make.makehtml();
         document.getElementById("page").replaceWith(articledata.main);
         document.getElementById("index").replaceWith(articledata.index);
-        document.getElementById("ogtitle").content = article
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
     };
 
