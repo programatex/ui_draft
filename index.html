@@ -9,7 +9,7 @@
     <title></title>
     <meta charset="utf-8">
     <link href="./highlight/js.css" rel="stylesheet">
-    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </head>
 
 <body>
@@ -48,6 +48,14 @@
     </div>
 
 </body>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+          skipTags: ["script","noscript","style","textarea","pre","code","kbd"]
+      }
+    });
+</script>
 
 </html>
 <script src="make.js"></script>
@@ -98,6 +106,7 @@
         document.getElementById("page").replaceWith(articledata.main);
         document.getElementById("index").replaceWith(articledata.index);
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
+        MathJax.Hub.Typeset();
     };
 
     const updateArticleList = async () => {
@@ -175,7 +184,7 @@
         margin: 10px;
         margin-left: 20px;
         border-radius: 20px;
-        width: 70%;
+        width: calc(70vw - 200px);
         max-height: 500px;
         height: fit-content;
         resize: none;
@@ -183,14 +192,6 @@
         display: inline-block;
     }
 
-    .mathml {
-        color: rgb(235, 235, 235);
-        background-color: rgb(34, 57, 57);
-        padding: 30px;
-        margin: 10px;
-        margin-left: 20px;
-        border-radius: 10px;
-    }
 
     pre.page {
         background-color: rgb(34, 57, 57);
@@ -199,7 +200,7 @@
         margin: 10px;
         margin-left: 20px;
         border-radius: 10px;
-        width: 70%;
+        width: calc(70vw - 200px);
         max-height: 500px;
         resize: none;
         overflow: auto;
@@ -458,7 +459,7 @@
         margin: 10px;
         margin-left: 20px;
         border-radius: 10px;
-        width: 70%;
+        width: calc(70vw - 200px);
         max-height: 500px;
         resize: none;
         overflow: auto;
@@ -477,3 +478,51 @@
         width: fit-content;
     }
 </style>
+<style>
+    .mathml {
+        background-color: rgb(34, 57, 57);
+        color: white;
+        padding: 30px;
+        margin: 10px;
+        margin-left: 20px;
+        border-radius: 10px;
+        width: calc(70vw - 200px);
+        max-height: 500px;
+        overflow: auto;
+        display: inline-block;
+    }
+
+    .mjx-chtml.MJXc-display {
+        background-color: rgb(164, 164, 164);
+        width: min-content;
+
+        background-color: rgb(34, 57, 57);
+        color: white;
+        padding: 30px;
+        margin: 10px;
+        margin-left: 20px;
+        border-radius: 10px;
+        width: calc(70vw - 200px);
+        max-height: 500px;
+        overflow: auto;
+        display: inline-block;
+    }
+</style>
+<!-- 
+    mjx-math mathml
+    mjx-math
+    mjx-chtml MathJax_CHTML
+    mjx-chtml MJXc-display
+mjx-math
+pre.page {
+    background-color: rgb(34, 57, 57);
+    color: white;
+    padding: 30px;
+    margin: 10px;
+    margin-left: 20px;
+    border-radius: 10px;
+    width: 70%;
+    max-height: 500px;
+    resize: none;
+    overflow: auto;
+} -->
