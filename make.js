@@ -130,7 +130,6 @@ class MAKE {
                         else if (langname=="math") {
                             let mth = document.createElement("math");
                             mth.className = "mathml"
-                            mth.columnalign="right center left"
                             mth.innerHTML = codeelm.innerText;
                             part.appendChild(mth);
                         }
