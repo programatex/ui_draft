@@ -161,7 +161,7 @@
 
     const jump = (id) => {
         const targ = document.getElementById(id).getBoundingClientRect();
-        window.scrollTo({ top: targ.top - 10, behavior: "smooth" });
+        document.getElementById("page").scrollTo({ top: targ.top - 10, behavior: "smooth" });
     };
 
     window.onload = function() {
