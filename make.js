@@ -44,21 +44,42 @@ class MAKE {
 
         let d = data.replace(/\r/g, "").split("\n");
         let title = "";
+        let index = [];
+        let id = 0;
         let p = 0;
         while (p < d.length) { // main
-            let part = document.createElement("div");
             if (d[p].startsWith("# ")) {
+                index.push([1, this.escapeHTML(d[p].slice(2)), id]);
+                id++;
+
                 if (title == "") {
                     title = this.escapeHTML(d[p].slice(2));
                 }
             }
+            else if (d[p].startsWith("## ")) {
+                index.push([2, this.escapeHTML(d[p].slice(3)), id]);
+                id++;
+            }
             p++;
+        }
+        let ielm = document.createElement("ul");
+        ielm.className = "panellist";
+        ielm.id = "index";
+        for (let i = 0; i < index.length; i++) {
+            let lielm = document.createElement("li");
+            let buttonelm = document.createElement("button");
+            lielm.className = "panellist";
+            buttonelm.className = "panellist";
+            buttonelm.addEventListener("click", function () { jump(index[i][1]) });
+            buttonelm.innerHTML = index[i][1];
+            lielm.appendChild(buttonelm);
+            ielm.appendChild(lielm);
         }
         if (title != "") {
             title = title + " - ";
         }
 
-        return { "title": title , "data": data, "info": info};
+        return {"index": ielm, "title": title , "data": data, "info": info};
     }
     async makehtml() {
         let get = await this.get();
@@ -71,7 +92,6 @@ class MAKE {
         let elm = document.createElement("div");
         let index = [];
         let id = 0;
-        elm.addEventListener("click", closePanel);
         elm.id = "page"
         let p = 0;
         while (p < d.length) { // main
@@ -94,9 +114,9 @@ class MAKE {
                             pelm.innerHTML = "変更予定のある記事です"
                         }
                         pelm.className = "page";
-                        pelm.className = "page writtingpage";
+                        pelm.className = "page writingpage";
                         let cmsg = document.createElement("div");
-                        cmsg.className = "page writtingpage";
+                        cmsg.className = "page writingpage";
                         cmsg.appendChild(pelm);
                         elm.appendChild(cmsg);
                     }

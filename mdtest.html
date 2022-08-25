@@ -112,8 +112,9 @@
         let tpage = document.createElement("div");
         tpage.id = "page"; // ページ作成
         tpage.innerHTML = marked.parse(articledata.data.replace(/\\/g, "\\\\")); // パースして入れる
+        tpage.addEventListener("click", closePanel);
         document.getElementById("page").replaceWith(tpage); // ページ置き換え
-        rep();
+        rep(articledata.info);
         MathJax.Hub.Typeset(); // 数式ライブラリ
         document.getElementById("index").replaceWith(articledata.index);
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
@@ -160,7 +161,7 @@
 
     const jump = (id) => {
         const targ = document.getElementById(id).getBoundingClientRect();
-        window.scrollTo({ top: targ.top - 20, behavior: "smooth" });
+        window.scrollTo({ top: targ.top - 10, behavior: "smooth" });
     };
 
     window.onload = function() {
@@ -186,29 +187,22 @@
         overflow-x: hidden;
     }
 
-    iframe.iframecode {
-        border: none;
-
-        color: white;
-        padding: 10px;
-        margin: 10px;
-        border-radius: 20px;
-        max-height: 500px;
-        height: fit-content;
-        resize: none;
-        overflow: auto;
-        display: inline-block;
+    td,th,table {
+        border: 1px solid rgba(34, 57, 57, 0.3);
+        padding: 2px;
     }
-
-
+    thead {
+        background-color: rgba(215, 215, 215, 0.3);
+    }
 
     div.panellist {
         margin: 10px;
     }
 
-    p.writtingpage {
-        margin: 1px;
-        padding: 0px;
+    .writing {
+        background-color: rgba(127, 255, 212, 0.215);
+        width: fit-content;
+        padding: 5px;
     }
 
     div#page {
@@ -442,12 +436,15 @@
 
     iframe.iframecode,pre.page,.highlightbody,.mathml,.mjx-chtml.MJXc-display { /* コードブロック */
         width: calc(70vw - 200px);
+        font-family: monospace;
+        display: inline-block;
+        white-space: nowrap
     }
 
     @media (max-width: 640px) {
 
         iframe.iframecode,pre.page,.highlightbody,.mathml,.mjx-chtml.MJXc-display { /* コードブロック */
-            width: calc(100vw - 220px);
+            width: calc(100vw - 190px);
             margin-right: 30px;
         }
 

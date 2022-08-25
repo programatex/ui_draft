@@ -1,7 +1,21 @@
-function rep() {
-    codeblks = document.getElementsByTagName("code"); // get code blocks
+function rep(info) {
+    let writing = document.createElement("p"); // get code blocks
+    writing.className = "writing";
+    let page = document.getElementById("page");
+    switch (info.split(",")[2]) {
+        case "1":
+            writing.innerHTML = "書きかけの記事です";
+            page.insertBefore(writing,page.firstChild);
+            break;
+        case "2":
+            writing.innerHTML = "追記予定があります";
+            page.insertBefore(writing,page.firstChild);
+            break;
+        default:
+            break;
+    }
+    let codeblks = document.getElementsByTagName("code"); // get code blocks
     let i = 0;
-    console.log(codeblks)
     while (i<codeblks.length) {
         let coded = codeblks[i].innerText
         let lang = codeblks[i].className.slice(9)

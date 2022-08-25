@@ -103,6 +103,7 @@
         }
 
         const articledata = await make.makehtml();
+        articledata.main.addEventListener("click", closePanel);
         document.getElementById("page").replaceWith(articledata.main);
         document.getElementById("index").replaceWith(articledata.index);
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
@@ -263,7 +264,7 @@
         margin-bottom: 40px;
     }
 
-    div.writtingpage {
+    div.writingpage {
         background: navajowhite;
         font-size: 11.5px;
         position: relative;
@@ -275,7 +276,7 @@
         width: fit-content;
     }
 
-    p.writtingpage {
+    p.writingpage {
         margin: 1px;
         padding: 0px;
     }
