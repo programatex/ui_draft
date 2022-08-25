@@ -7,10 +7,9 @@
     <link href="./highlight/js.css" rel="stylesheet">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="数学が苦手なプログラマのための教科書">
+    <meta property="og:title" content="" id="ogtitle">
     <meta property="og:description" content="数学が苦手なプログラマのための教科書">
     <meta property="og:site_name" content="数学が苦手なプログラマのための教科書">
-
 </head>
 
 <body>
@@ -55,21 +54,19 @@
 <script src="./highlight/js.js"></script>
 <script>
     function closeshare() {
-        a = document.getElementById("popuparea")
-        a.style.visibility = "hidden"
-        console.log(a)
+        a = document.getElementById("popuparea");
+        a.style.visibility = "hidden";
     }
     function openshare() {
-        a = document.getElementById("popuparea")
-        a.style.visibility = "visible"
-        console.log(a)
+        a = document.getElementById("popuparea");
+        a.style.visibility = "visible";
     }
 
     function share() {
-        let shareurl = location.origin + location.pathname + "?article=" + location.hash.substring(1)
-        document.getElementById("shareurl").value = shareurl
+        let shareurl = location.origin + location.pathname + "?article=" + location.hash.substring(1);
+        document.getElementById("shareurl").value = shareurl;
         
-        document.getElementById("twitter").href =  'https://twitter.com/intent/tweet?text='  + document.title + ' - ' + shareurl
+        document.getElementById("twitter").href =  'https://twitter.com/intent/tweet?text='  + document.title + ' - ' + shareurl;
     }
 
     // panel
@@ -100,15 +97,14 @@
         const articledata = await make.makehtml();
         document.getElementById("page").replaceWith(articledata.main);
         document.getElementById("index").replaceWith(articledata.index);
+        document.getElementById("ogtitle").content = article
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
     };
 
     const updateArticleList = async () => {
         const res = await fetch("./articles.txt", {
             method: "GET",
-            headers: {
-                'Catch-Control': "max-age=3600"
-            }
+            headers: {'Catch-Control': "max-age=3600" }
         });
         
         const artcs = (await res.text()).replace(/\r/g, "").split("\n");
@@ -158,7 +154,6 @@
             params[ap[0]] = ap[1]
         }
         if (params["article"]!=null) {
-            console.log(params["article"])
             location.hash = params["article"];
             location.search = "";
         }
