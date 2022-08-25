@@ -107,16 +107,16 @@
             return;
         }
 
-        const articledata = await make.makehtml();
 
+        const articledata = await make.getdatas();
         let tpage = document.createElement("div");
         tpage.id = "page"; // ページ作成
         tpage.innerHTML = marked.parse(articledata.data.replace(/\\/g, "\\\\")); // パースして入れる
         document.getElementById("page").replaceWith(tpage); // ページ置き換え
         rep();
+        MathJax.Hub.Typeset(); // 数式ライブラリ
         document.getElementById("index").replaceWith(articledata.index);
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
-        MathJax.Hub.Typeset(); // 数式ライブラリ
     };
 
     const updateArticleList = async () => {

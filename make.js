@@ -34,13 +34,37 @@ class MAKE {
         }
         console.log(info, article);
 
-        return [data, info];
+        return { "info": info, "data": data};
+    }
+    async getdatas() {
+        let get = await this.get();
+
+        let data = get.data;
+        let info = get.info;
+
+        let d = data.replace(/\r/g, "").split("\n");
+        let title = "";
+        let p = 0;
+        while (p < d.length) { // main
+            let part = document.createElement("div");
+            if (d[p].startsWith("# ")) {
+                if (title == "") {
+                    title = this.escapeHTML(d[p].slice(2));
+                }
+            }
+            p++;
+        }
+        if (title != "") {
+            title = title + " - ";
+        }
+
+        return { "title": title , "data": data, "info": info};
     }
     async makehtml() {
         let get = await this.get();
 
-        let data = get[0];
-        let info = get[1];
+        let data = get.data;
+        let info = get.info;
 
         let d = data.replace(/\r/g, "").split("\n");
         let title = "";
