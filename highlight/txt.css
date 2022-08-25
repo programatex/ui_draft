@@ -1,0 +1,14 @@
+#highlight.txt {
+    color: rgb(245, 241, 236);
+    pointer-events: none;
+}
+pre.txt {
+    margin: 0px;
+    display: inline;
+}
+.BLANK.txt { /* 空白 */
+    text-decoration: underline rgba(255, 255, 255, 0.2);
+}
+.TXT.txt {
+    color: rgb(255, 255, 255);
+}

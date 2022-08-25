@@ -2,6 +2,10 @@
     color: rgb(245, 241, 236);
     pointer-events: none;
 }
+pre.js {
+    margin: 0px;
+    display: inline;
+}
 .BCOMMENT.js { /* ブロックコメント */
     color:rgb(133 179 39);
 }
@@ -30,7 +34,7 @@
     color: rgb(127, 255, 187);
 }
 .RETURN.js {
-    color:rgb(255 59 0);
+    color:rgb(255, 138, 103);
 }
 .LPAREN.js,.RPAREN.js {
     color: rgb(255, 157, 230);

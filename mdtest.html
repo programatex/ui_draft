@@ -8,7 +8,6 @@
     <meta property="og:site_name" content="">
     <title></title>
     <meta charset="utf-8">
-    <link href="./highlight/js.css" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -60,8 +59,13 @@
 
 </html>
 <script src="./make.js"></script>
-<script src="./highlight/js.js"></script>
 <script src="./rep.js"></script>
+
+<link href="./highlight/js.css" rel="stylesheet">
+<link href="./highlight/txt.css" rel="stylesheet">
+<script src="./highlight/js.js"></script>
+<script src="./highlight/txt.js"></script>
+
 <script>
     function closeshare() {
         a = document.getElementById("popuparea");
@@ -75,7 +79,6 @@
     function share() {
         let shareurl = location.origin + location.pathname + "?article=" + location.hash.substring(1);
         document.getElementById("shareurl").value = shareurl;
-        
         document.getElementById("twitter").href =  'https://twitter.com/intent/tweet?text='  + document.title + ' - ' + shareurl;
     }
 
@@ -108,12 +111,12 @@
 
         let tpage = document.createElement("div");
         tpage.id = "page"; // ページ作成
-        tpage.innerHTML = marked.parse(articledata.data); // パースして入れる
+        tpage.innerHTML = marked.parse(articledata.data.replace(/\\/g, "\\\\")); // パースして入れる
         document.getElementById("page").replaceWith(tpage); // ページ置き換え
         rep();
         document.getElementById("index").replaceWith(articledata.index);
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
-        // MathJax.Hub.Typeset(); // 数式ライブラリ
+        MathJax.Hub.Typeset(); // 数式ライブラリ
     };
 
     const updateArticleList = async () => {
@@ -198,88 +201,9 @@
     }
 
 
-    pre.page {
-        background-color: rgb(34, 57, 57);
-        color: white;
-        padding: 30px;
-        margin: 10px;
-        border-radius: 10px;
-        max-height: 500px;
-        resize: none;
-        overflow: auto;
-    }
-
-    code.page {
-        display: inline-block;
-        margin: 0px;
-        margin-right: 30px;
-        padding: 0px;
-    }
-
-    h1.page {
-        background: palegreen;
-    }
 
     div.panellist {
         margin: 10px;
-    }
-
-    p.page {
-        margin: 2px;
-        margin-left: 10px;
-        padding: 5px;
-    }
-
-    .page {
-        padding: 10px;
-        padding-top: 15px;
-        border-radius: 10px;
-    }
-
-    p.lang {
-        font-size: 15px;
-        position: relative;
-        background: gray;
-        padding: 10px;
-        border-radius: 10px 0px 10px 0px;
-        margin: 0;
-        margin-top: -30px;
-        margin-left: -30px;
-        margin-bottom: 10px;
-        padding: 2px 15px 2px 15px;
-        width: fit-content;
-    }
-
-    h2.page {
-        background: aquamarine;
-        margin-left: 10px;
-    }
-
-    div.page {
-        background: wheat;
-        margin: 0px;
-    }
-
-    h1.pagetitle {
-        text-align: center;
-        background: chartreuse;
-        font-size: 35px;
-        padding: 20px;
-        margin: 0px;
-        margin-top: 0px;
-        margin-bottom: 40px;
-    }
-
-    div.writtingpage {
-        background: navajowhite;
-        font-size: 11.5px;
-        position: relative;
-        border-radius: 10px 0px 7px 0px;
-        margin: 0px;
-        margin-bottom: -21px;
-        padding: 2px 20px 2px 5px;
-        height: 17px;
-        width: fit-content;
     }
 
     p.writtingpage {
@@ -432,10 +356,6 @@
 
 </style>
 <style>
-    pre.js {
-        margin: 0px;
-        display: inline;
-    }
     .highlightbody {
         color: rgb(235, 235, 235);
         background-color: rgb(34, 57, 57);
@@ -465,6 +385,26 @@
         margin-right: 30px;
         padding: 0px;
     }
+
+    
+    pre.page {
+        background-color: rgb(34, 57, 57);
+        color: white;
+        padding: 30px;
+        margin: 10px;
+        border-radius: 10px;
+        max-height: 500px;
+        resize: none;
+        overflow: auto;
+    }
+
+    code.page {
+        display: inline-block;
+        margin: 0px;
+        margin-right: 30px;
+        padding: 0px;
+    }
+
 </style>
 <style>
     .mjx-math.mathml {
@@ -487,7 +427,6 @@
         color: rgb(235, 235, 235);
         padding: 30px;
         margin: 10px;
-        margin-left: -5px;
         margin-right: 100px;
         border-radius: 10px;
         max-height: 500px;

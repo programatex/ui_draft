@@ -9,7 +9,7 @@
 
 # プログラム例
 関数名はprimefactorization(素因数分解)を省略したprimefactにします
-```
+```js
 //素因数分解
 function primefact(num){
   for

@@ -1,4 +1,3 @@
-
 function jstokenaize(c) {
     let p = 0;
     let searchtype = [

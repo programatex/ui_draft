@@ -3,12 +3,27 @@ function rep() {
     let i = 0;
     console.log(codeblks)
     while (i<codeblks.length) {
-        if (codeblks[i].className == "language-js") { // js highlight 対象
-            let h = jshighlight(codeblks[i].innerText);
-            codeblks[i].parentElement.replaceWith(h);
-        }
-        else {
-            i++;
+        let coded = codeblks[i].innerText
+        let lang = codeblks[i].className.slice(9)
+        switch (lang) {
+            case "js":
+                let jsh = jshighlight(coded);
+                codeblks[i].parentElement.replaceWith(jsh);
+                break;
+            case "math":
+                let mth = document.createElement("math");
+                mth.className = "mathml";
+                mth.innerHTML = coded;
+                codeblks[i].parentElement.replaceWith(mth);
+                break;
+            case "txt":
+                let txth = txthighlight(coded);
+                codeblks[i].parentElement.replaceWith(txth);
+                break;
+            default:
+                let ch = txthighlight(coded,lang);
+                codeblks[i].parentElement.replaceWith(ch);
+                break;
         }
     }
 }
