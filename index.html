@@ -182,9 +182,7 @@
         color: white;
         padding: 10px;
         margin: 10px;
-        margin-left: 20px;
         border-radius: 20px;
-        width: calc(70vw - 200px);
         max-height: 500px;
         height: fit-content;
         resize: none;
@@ -198,9 +196,7 @@
         color: white;
         padding: 30px;
         margin: 10px;
-        margin-left: 20px;
         border-radius: 10px;
-        width: calc(70vw - 200px);
         max-height: 500px;
         resize: none;
         overflow: auto;
@@ -209,6 +205,7 @@
     code.page {
         display: inline-block;
         margin: 0px;
+        margin-right: 30px;
         padding: 0px;
     }
 
@@ -426,7 +423,87 @@
     }
 
 
+</style>
+<style>
+    pre.js {
+        margin: 0px;
+        display: inline;
+    }
+    .highlightbody {
+        color: rgb(235, 235, 235);
+        background-color: rgb(34, 57, 57);
+        padding: 30px;
+        margin: 10px;
+        border-radius: 10px;
+        max-height: 500px;
+        resize: none;
+        overflow: auto;
+    }
+    .langtag {
+        font-size: 15px;
+        position: relative;
+        background: gray;
+        padding: 10px;
+        border-radius: 10px 0px 10px 0px;
+        margin: 0;
+        margin-top: -30px;
+        margin-left: -30px;
+        margin-bottom: 10px;
+        padding: 2px 15px 2px 15px;
+        width: fit-content;
+    }
+    .codearea {
+        display: inline-block;
+        margin: 0px;
+        margin-right: 30px;
+        padding: 0px;
+    }
+</style>
+<style>
+    .mjx-math.mathml {
+        background-color: rgb(34, 57, 57);
+        color: rgb(235, 235, 235);
+        padding: 30px;
+        margin: 10px;
+        margin-left: 20px;
+        border-radius: 10px;
+        max-height: 500px;
+        overflow: auto;
+        display: inline-block;
+    }
+    .mjx-math.mathml > .mjx-mrow {
+        margin-right: 30px;
+    }
+
+    .mjx-chtml.MJXc-display {
+        background-color: rgb(34, 57, 57);
+        color: rgb(235, 235, 235);
+        padding: 30px;
+        margin: 10px;
+        margin-right: 100px;
+        border-radius: 10px;
+        max-height: 500px;
+        overflow: auto;
+        display: inline-block;
+        text-align: left !important;
+    }
+    .mjx-chtml.MJXc-display > .mjx-chtml.MathJax_CHTML {
+        margin-right: 30px;
+    }
+</style>
+<style>
+
+    iframe.iframecode,pre.page,.highlightbody,.mathml,.mjx-chtml.MJXc-display { /* コードブロック */
+        width: calc(70vw - 200px);
+    }
+
     @media (max-width: 640px) {
+
+        iframe.iframecode,pre.page,.highlightbody,.mathml,.mjx-chtml.MJXc-display { /* コードブロック */
+            width: calc(100vw - 220px);
+            margin-right: 30px;
+        }
+
         div#page {
             padding: 30px;
             padding-right: 60px;
@@ -447,83 +524,3 @@
 
     }
 </style>
-<style>
-    pre.js {
-        margin: 0px;
-        display: inline;
-    }
-    .highlightbody {
-        color: rgb(235, 235, 235);
-        background-color: rgb(34, 57, 57);
-        padding: 30px;
-        margin: 10px;
-        margin-left: 20px;
-        border-radius: 10px;
-        width: calc(70vw - 200px);
-        max-height: 500px;
-        resize: none;
-        overflow: auto;
-    }
-    .langtag {
-        font-size: 15px;
-        position: relative;
-        background: gray;
-        padding: 10px;
-        border-radius: 10px 0px 10px 0px;
-        margin: 0;
-        margin-top: -30px;
-        margin-left: -30px;
-        margin-bottom: 10px;
-        padding: 2px 15px 2px 15px;
-        width: fit-content;
-    }
-</style>
-<style>
-    .mathml {
-        background-color: rgb(34, 57, 57);
-        color: white;
-        padding: 30px;
-        margin: 10px;
-        margin-left: 20px;
-        border-radius: 10px;
-        width: calc(70vw - 200px);
-        max-height: 500px;
-        overflow: auto;
-        display: inline-block;
-    }
-
-    .mjx-chtml.MJXc-display {
-        background-color: rgb(164, 164, 164);
-        width: min-content;
-
-        background-color: rgb(34, 57, 57);
-        color: white;
-        padding: 30px;
-        margin: 10px;
-        margin-left: 20px;
-        border-radius: 10px;
-        width: calc(70vw - 200px);
-        max-height: 500px;
-        overflow: auto;
-        display: inline-block;
-        text-align: left !important;
-    }
-</style>
-<!-- 
-    mjx-math mathml
-    mjx-math
-    mjx-chtml MathJax_CHTML
-    mjx-chtml MJXc-display
-mjx-math
-pre.page {
-    background-color: rgb(34, 57, 57);
-    color: white;
-    padding: 30px;
-    margin: 10px;
-    margin-left: 20px;
-    border-radius: 10px;
-    width: 70%;
-    max-height: 500px;
-    resize: none;
-    overflow: auto;
-} -->

@@ -24,16 +24,27 @@ LICENSE: https://github.com/mdn/translated-content/blob/main/LICENSE.md
 <mi>b</mi>
 <mo>-</mo>
 <mn>3</mn>
+<mi>a</mi>
+<mo>+</mo>
+<mi>b</mi>
+<mo>-</mo>
+<mn>3</mn>
+<mi>a</mi>
+<mo>+</mo>
+<mi>b</mi>
+<mo>-</mo>
+<mn>3</mn>
 ```
 
 文章中の \( a^2−b^2 \) 数式  
   
 \(a^2 + b^2 = c^2\)  
-\[a^2 + b^2 = c^2\]  
+\[a^2 + b^2 = c^2 a^2 + b^2 = c^2a^2 + b^2 = c^2a^2 + b^2 = c^2\]  
 
 \begin{cases}
 a^2 + b^2 = c^2 \\
 b^2 + a^2 = c^2 \\
+b^2 + a^2 = c^2 b^2 + a^2 = c^2 b^2 + a^2 = c^2 b^2 + a^2 = c^2 
 \end{cases}
 
 ## javascriptのプログラム例
