@@ -5,6 +5,7 @@
 home,home,1
 
 mathtest,数式のテスト,1
+graphtest,グラフのテスト,1
 bintodec,2進数から10進数への変換,0
 vector,ベクトル,1
 exponentiation,自然数累乗,0

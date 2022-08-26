@@ -31,6 +31,13 @@ function rep(info) {
                     mth.innerHTML = coded;
                     codeblks[i].parentElement.replaceWith(mth);
                     break;
+                case "svggraph":
+                    console.log("aaafewagawe")
+                    const svgg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svgg.setAttribute("script", coded);
+                    svgg.className = "svggraph"
+                    codeblks[i].parentElement.replaceWith(svgg);
+                    break;
                 case "txt":
                     let txth = txthighlight(coded);
                     codeblks[i].parentElement.replaceWith(txth);

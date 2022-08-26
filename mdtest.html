@@ -10,6 +10,7 @@
     <meta charset="utf-8">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="./library/svggraph.js"></script>
 </head>
 
 <body>
@@ -67,6 +68,7 @@
 <script src="./highlight/txt.js"></script>
 
 <script>
+
     function closeshare() {
         a = document.getElementById("popuparea");
         a.style.visibility = "hidden";
@@ -116,6 +118,7 @@
         document.getElementById("page").replaceWith(tpage); // ページ置き換え
         rep(articledata.info);
         MathJax.Hub.Typeset(); // 数式ライブラリ
+        SVGGraph.Update(); // グラフライブラリ
         document.getElementById("index").replaceWith(articledata.index);
         document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
     };
@@ -226,6 +229,7 @@
         width: calc(100% - 290px);
         height: calc(100vh - 50px);
         overflow-y: auto;
+        overflow-x: hidden;
     }
     div#panel {
         position: fixed;
@@ -442,6 +446,18 @@
         white-space: nowrap
     }
 
+    svg {
+        width: calc(70vw - 200px);
+        height: calc(70vw - 200px);
+        max-width: 400px;
+        max-height: 400px;
+        background-color: #ffffff;
+        display: inline-block;
+        margin: 10px;
+        padding: 30px;
+        margin-right: 100px;
+    }
+
 </style>
 <style>
 
@@ -450,6 +466,11 @@
         iframe.iframecode,pre.page,.highlightbody,.mathml,.mjx-chtml.MJXc-display { /* コードブロック */
             width: calc(100vw - 190px);
             margin-right: 30px;
+        }
+
+        svg {
+            width: calc(100vw - 190px);
+            height: calc(100vw - 190px);
         }
 
         div#page {
