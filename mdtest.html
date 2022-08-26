@@ -194,6 +194,20 @@
     thead {
         background-color: rgba(215, 215, 215, 0.3);
     }
+    h1::before, h1::after {
+        content: "";
+        display: block;
+        margin: 10px -10px;
+        height: 3px;
+        background: linear-gradient(to right, #43C6AC 0%, #f0fff0 100%);
+    }
+    hr {
+        height: 2px;
+        background: linear-gradient(to right, #ffd561 0%, #f0fff0 100%);
+        border: none;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
 
     div.panellist {
         margin: 10px;
@@ -420,8 +434,6 @@
     .mjx-chtml.MJXc-display > .mjx-chtml.MathJax_CHTML {
         margin-right: 30px;
     }
-</style>
-<style>
 
     iframe.iframecode,pre.page,.highlightbody,.mathml,.mjx-chtml.MJXc-display { /* コードブロック */
         width: calc(70vw - 200px);
@@ -429,6 +441,9 @@
         display: inline-block;
         white-space: nowrap
     }
+
+</style>
+<style>
 
     @media (max-width: 640px) {
 

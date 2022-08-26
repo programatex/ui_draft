@@ -3,9 +3,7 @@
 このページでは実数解の個数の判定を扱う  
   
 2次方程式の解の公式は  
-```math
-x = ( -b ± \sqrt{b - 4ac} ) / 2a
-```
+\(\displaystyle x = \frac{-b±\sqrt{b-4ac}}{2a}\)  
 根号の内側、b - 4ac をDとする  
   
 実数解の個数  

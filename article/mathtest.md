@@ -16,7 +16,7 @@
 https://developer.mozilla.org/ja/docs/Web/MathML/Examples/MathML_Pythagorean_Theorem  
 LICENSE: https://github.com/mdn/translated-content/blob/main/LICENSE.md  
 
-# 
+- - - -
 
 ```math
 <mi>a</mi>
