@@ -41,7 +41,7 @@
     <div id="popuparea" style="visibility: hidden;">
         <div class="popup">
             <button class="popup close" onclick="closeshare()">×</button>
-            <h1 class="popup" id="closepopup">共有</h1>
+            <p class="popup" id="titlepopup">共有</p>
             <p class="popup" style="display: inline">URL:</p>
             <input value="https://example" id="shareurl">
             <a href="twitter.com" id="twitter" target="_blank" rel="noopener noreferrer">ついった</a>
@@ -337,8 +337,9 @@
         padding: 0px;
         margin: 0px;
     }
-    h1.popup {
+    #titlepopup {
         font-size: 20px;
+        margin: 5px;
     }
     button.popup.close {
         width: fit-content;
