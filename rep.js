@@ -19,7 +19,7 @@ function rep(info) {
     while (i<codeblks.length) {
         let coded = codeblks[i].innerText
         if (codeblks[i].parentElement.nodeName == "PRE") {
-            let lang = codeblks[i].className.slice(9)
+            let lang = codeblks[i].className.slice(9).split(":")[0]
             switch (lang) {
                 case "js":
                     let jsh = jshighlight(coded);
@@ -35,7 +35,6 @@ function rep(info) {
                     console.log("aaafewagawe")
                     const svgg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                     svgg.setAttribute("script", coded);
-                    svgg.className = "svggraph"
                     codeblks[i].parentElement.replaceWith(svgg);
                     break;
                 case "txt":
@@ -50,7 +49,7 @@ function rep(info) {
         }
         else {
             let inline = codeblks[i];
-            inline.className = "inline"
+            inline.className = "inline";
             codeblks[i].replaceWith(inline);
             i++;
         }
