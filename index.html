@@ -69,6 +69,26 @@
 
 <script>
 
+    // page and article list
+    const updatePage = async () => {
+        let article = location.hash.substring(1);
+        if (article.length < 1) {
+            location.hash = "home";
+            return;
+        }
+        const articledata = await make.getdatas();
+        let tpage = document.createElement("div");
+        tpage.id = "page"; // ページ作成
+        tpage.innerHTML = marked.parse(articledata.data.replace(/\\/g, "\\\\")); // パースして入れる
+        tpage.addEventListener("click", closePanel);
+        document.getElementById("page").replaceWith(tpage); // ページ置き換え
+        rep(articledata.info);
+        MathJax.Hub.Typeset(); // 数式ライブラリ
+        SVGGraph.Update(); // グラフライブラリ
+        document.getElementById("index").replaceWith(articledata.index);
+        document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
+    };
+
     function closeshare() {
         a = document.getElementById("popuparea");
         a.style.visibility = "hidden";
@@ -101,28 +121,6 @@
 
     panelElement.addEventListener("click", openPanel);
 
-    // page and article list
-    const updatePage = async () => {
-        let article = location.hash.substring(1);
-        if (article.length < 1) {
-            location.hash = "home";
-            return;
-        }
-
-
-        const articledata = await make.getdatas();
-        let tpage = document.createElement("div");
-        tpage.id = "page"; // ページ作成
-        tpage.innerHTML = marked.parse(articledata.data.replace(/\\/g, "\\\\")); // パースして入れる
-        tpage.addEventListener("click", closePanel);
-        document.getElementById("page").replaceWith(tpage); // ページ置き換え
-        rep(articledata.info);
-        MathJax.Hub.Typeset(); // 数式ライブラリ
-        SVGGraph.Update(); // グラフライブラリ
-        document.getElementById("index").replaceWith(articledata.index);
-        document.title = `${articledata.title}数学が苦手なプログラマのための教科書`;
-    };
-
     const updateArticleList = async () => {
         const res = await fetch("./articles.txt", {
             method: "GET",
@@ -130,7 +128,6 @@
         });
         
         const artcs = (await res.text()).replace(/\r/g, "").split("\n");
-
         const ulelm = document.createElement("ul");
         ulelm.id = "articles";
         ulelm.className = "panellist";
@@ -139,12 +136,10 @@
             if (!artcs[i].startsWith("//") && artcs[i].length > 0) {
                 const lielm = document.createElement("li");
                 lielm.className = "panellist";
-
                 const aelm = document.createElement("a");
                 aelm.className = "panellist";
                 aelm.innerHTML = artcs[i].split(",")[1];
                 aelm.href = "#" + artcs[i].split(",")[0];
-
                 lielm.appendChild(aelm);
                 ulelm.appendChild(lielm);
             }
@@ -169,11 +164,11 @@
 
     window.onload = function() {
         let search = location.search.substring(1);
-        params = {}
+        params = {};
         let param = search.split("&")
         for (let i=0;i<param.length;i++) {
-            let ap = param[i].split("=")
-            params[ap[0]] = ap[1]
+            let ap = param[i].split("=");
+            params[ap[0]] = ap[1];
         }
         if (params["article"]!=null) {
             location.hash = params["article"];
