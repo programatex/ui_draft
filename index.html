@@ -102,7 +102,7 @@
     function share() {
         let shareurl = location.origin + location.pathname + "?article=" + location.hash.substring(1);
         document.getElementById("shareurl").value = shareurl;
-        document.getElementById("twitter").href =  'https://twitter.com/intent/tweet?text='  + document.title + ' - ' + shareurl;
+        document.getElementById("twitter").href =  `https://twitter.com/intent/tweet?text=`+encodeURIComponent(`${document.title} - ${shareurl}\n#programatex`);
     }
 
     // panel
@@ -123,7 +123,7 @@
     panelElement.addEventListener("click", openPanel);
 
     const updateArticleList = async () => {
-        const res = await fetch("./articles.txt", {
+        const res = await fetch("/article/articles.txt", {
             method: "GET",
             headers: {'Catch-Control': "max-age=3600" }
         });

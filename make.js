@@ -3,7 +3,7 @@ class MAKE {
         const article = location.hash.substring(1);
         console.log(article);
 
-        const articleRes = await fetch(`./article/${article}.md`, {
+        const articleRes = await fetch(`/article/${article}.md`, {
             method: "GET",
             headers: {
                 "Catch-Control": "max-age=3600"
