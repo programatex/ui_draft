@@ -102,7 +102,7 @@
     function share() {
         let shareurl = location.origin + location.pathname + "?article=" + location.hash.substring(1);
         document.getElementById("shareurl").value = shareurl;
-        document.getElementById("twitter").href =  'https://twitter.com/intent/tweet?text='  + document.title + ' - ' + shareurl;
+        document.getElementById("twitter").href =  `https://twitter.com/intent/tweet?text=`+encodeURIComponent(`${document.title} - ${shareurl}\n#programatex`);
     }
 
     // panel
