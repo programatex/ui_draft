@@ -1,7 +1,6 @@
 class MAKE {
     async get() {
         const article = location.hash.substring(1);
-        console.log(article);
 
         const articleRes = await fetch(`/article/${article}.md`, {
             method: "GET",
@@ -49,15 +48,15 @@ class MAKE {
         let p = 0;
         while (p < d.length) { // main
             if (d[p].startsWith("# ")) {
-                index.push([1, this.escapeHTML(d[p].slice(2)), id]);
+                index.push([1, d[p].slice(2), id]);
                 id++;
 
                 if (title == "") {
-                    title = this.escapeHTML(d[p].slice(2));
+                    title = d[p].slice(2);
                 }
             }
             else if (d[p].startsWith("## ")) {
-                index.push([2, this.escapeHTML(d[p].slice(3)), id]);
+                index.push([2, d[p].slice(3), id]);
                 id++;
             }
             p++;
@@ -92,13 +91,13 @@ class MAKE {
         let elm = document.createElement("div");
         let index = [];
         let id = 0;
-        elm.id = "page"
+        elm.id = "page";
         let p = 0;
         while (p < d.length) { // main
             let part = document.createElement("div");
             if (d[p].startsWith("# ")) {
                 part = document.createElement("h1");
-                part.innerHTML = this.escapeHTML(d[p].slice(2));
+                part.innerText = d[p].slice(2);
                 part.className = "page";
                 part.id = "i" + id.toString();
                 index.push([1, part.innerHTML, id]);
@@ -109,9 +108,9 @@ class MAKE {
                     part.className = "page pagetitle";
                     if (info.split(",")[2] != "0") {
                         let pelm = document.createElement("p");
-                        pelm.innerHTML = "書きかけの記事です"
+                        pelm.innerText = "書きかけの記事です";
                         if (info.split(",")[2] == "2") {
-                            pelm.innerHTML = "変更予定のある記事です"
+                            pelm.innerText = "変更予定のある記事です";
                         }
                         pelm.className = "page";
                         pelm.className = "page writingpage";
@@ -125,10 +124,10 @@ class MAKE {
             }
             else if (d[p].startsWith("## ")) {
                 part = document.createElement("h2");
-                part.innerHTML = this.escapeHTML(d[p].slice(3));
+                part.innerText = d[p].slice(3);
                 part.className = "page";
                 part.id = "i" + id.toString();
-                index.push([2, part.innerHTML, id]);
+                index.push([2, part.innerText, id]);
                 id++;
                 elm.appendChild(part);
             }
@@ -151,7 +150,7 @@ class MAKE {
                             langname = d[p].substring(3).split(" ")[0]
                             let pelm = document.createElement("p");
                             pelm.className = "page lang";
-                            pelm.innerHTML = langname
+                            pelm.innerText = langname;
                             preelm.appendChild(pelm);
                         }
                         let codeelm = document.createElement("code");
@@ -161,10 +160,10 @@ class MAKE {
                             if (p >= d.length || d[p].startsWith("```")) {
                                 break;
                             }
-                            codeelm.innerHTML += this.escapeHTML(d[p]) + "\n";
+                            codeelm.innerText += d[p] + "\n";
                             p++;
                         }
-                        if (pelm.innerHTML.length > 0) {
+                        if (pelm.innerText.length > 0) {
                             part.appendChild(pelm);
                         }
 
@@ -174,7 +173,7 @@ class MAKE {
                         else if (langname=="math") {
                             let mth = document.createElement("math");
                             mth.className = "mathml"
-                            mth.innerHTML = codeelm.innerText;
+                            mth.innerText = codeelm.innerText;
                             part.appendChild(mth);
                         }
                         else {
@@ -186,7 +185,7 @@ class MAKE {
                         pelm.className = "page";
                     }
                     else {
-                        pelm.innerHTML += this.escapeHTML(d[p]).replace(/\ \ /g, "<br>");
+                        pelm.innerText += d[p].replace(/\ \ /g, "<br>");
                     }
                     p++;
                 }
@@ -219,13 +218,4 @@ class MAKE {
 
         return { "main": elm, "index": ielm, "title": title , "data": data};
     }
-    escapeHTML(str) { // https://qiita.com/hrdaya/items/4beebbdb57009b405d2d
-        return str
-            .replace(/&esc;/g, '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-    };
 }
