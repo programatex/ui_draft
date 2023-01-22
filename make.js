@@ -19,7 +19,7 @@ class MAKE {
         const data = await articleRes.text();
 
         let info = "";
-        const articleListRes = await fetch("./articles.txt", {
+        const articleListRes = await fetch("/article/articles.txt", {
             method: "GET",
             headers: {
                 "Catch-Control": "max-age=7200"
